@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using SMS.Models;
 using System;
+using System.Collections.Generic;
 
 [assembly: OwinStartupAttribute(typeof(SMS.Startup))]
 namespace SMS
@@ -22,6 +23,7 @@ namespace SMS
             AddAdminRole();
             AddParentRole();
             AddAccountantRole();
+            AddDesignations();
         }
         private void AddAccountantRole()
         {
@@ -120,6 +122,38 @@ namespace SMS
                 {
                     throw new System.Exception("Could not create admin role");
                 }
+            }
+        }
+
+        private void AddDesignations()
+        {
+            var designationsInDbCount = db.Designations.Count();
+            if(designationsInDbCount == 0)
+            {
+                var designations = new List<Designation>
+                {
+                    new Designation
+                    {
+                        Title = "Teacher"
+                    },
+                    new Designation
+                    {
+                        Title = "Principal"
+                    },
+                    new Designation
+                    {
+                        Title = "Clerk"
+                    },
+                    new Designation
+                    {
+                        Title = "Security Gaurd"
+                    }
+                };
+                foreach (var designation in designations)
+                {
+                    db.Designations.Add(designation);
+                }
+                db.SaveChanges();
             }
         }
     }
