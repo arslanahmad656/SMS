@@ -29,6 +29,7 @@ namespace SMS.Controllers
         public ActionResult CreateStudent()
         {
             ViewBag.ParentId = new SelectList(db.Parents, "Id", "Name");
+            ViewBag.ClassId = new SelectList(db.Classes, "Id", "Title");
             return View();
         }
 
@@ -42,13 +43,21 @@ namespace SMS.Controllers
                 {
                     db.Students.Add(model);
                     db.SaveChanges();
+                    var classId = Convert.ToInt32(Request.Form["ClassId"]);
+                    var @class = db.Classes.Find(classId);
+                    var studentClass = new StudentClass
+                    {
+                        ClassId = classId,
+                        StudentId = model.Id
+                    };
+                    db.StudentClasses.Add(studentClass);
+                    db.SaveChanges();
                     return RedirectToAction("ListStudent");
 
                 }
                 else
                 {
                     throw new Exception("Model State Invalid!");
-                   
                 }
             }
             catch
@@ -116,9 +125,6 @@ namespace SMS.Controllers
                     //code to delete student from parent
 
                     return RedirectToAction("ListStudent");
-
-
-
                 }
                 else
                 {
