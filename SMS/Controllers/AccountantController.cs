@@ -7,6 +7,8 @@ using System.ComponentModel.DataAnnotations;
 using SMS.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Net;
+using System.Data.Entity;
 
 namespace SMS.Controllers
 {
@@ -24,10 +26,112 @@ namespace SMS.Controllers
 
         #region Student
 
+        public ActionResult CreateStudent()
+        {
+            ViewBag.ParentId = new SelectList(db.Parents, "Id", "Name");
+            return View();
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateStudent(Student model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Students.Add(model);
+                    db.SaveChanges();
+                    return RedirectToAction("ListStudent");
+
+                }
+                else
+                {
+                    throw new Exception("Model State Invalid!");
+                   
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            
+        }
+
+        public ActionResult ListStudent()
+        {
+            return View(db.Students);
+        }
+
+        public ActionResult EditStudent(int id)
+        {
+            var model = db.Students.Find(id);
+            if (model == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+            ViewBag.ParentId = new SelectList(db.Parents, "Id", "Name", model.ParentId);
+            return View(model);           
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditStudent(Student model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Entry(model).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("ListStudent");
+
+                }
+                else
+                {
+                    throw new Exception("Model State Invalid!");
+
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public ActionResult DeleteStudent(int id)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Student model = db.Students.Find(id);
+                    if (model == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                    }
+                    db.Entry(model).State = EntityState.Deleted;
+                    db.SaveChangesAsync();
+
+                    //code to delete student from parent
+
+                    return RedirectToAction("ListStudent");
+
+
+
+                }
+                else
+                {
+                    throw new Exception("Model State Invalid");
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
 
         #endregion
-
         #region Parent
 
         public ActionResult CreateParent()
@@ -115,5 +219,7 @@ namespace SMS.Controllers
             ViewBag.Name = s.Name;
             return View();
         }
+        
     }
+
 }

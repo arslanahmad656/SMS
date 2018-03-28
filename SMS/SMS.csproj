@@ -362,6 +362,9 @@
     <Content Include="Views\Accountant\Something.cshtml" />
     <Content Include="Views\Accountant\CreateTeacher.cshtml" />
     <Content Include="Views\Accountant\ListTeacher.cshtml" />
+    <Content Include="Views\Accountant\CreateStudent.cshtml" />
+    <Content Include="Views\Accountant\ListStudent.cshtml" />
+    <Content Include="Views\Accountant\EditStudent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
