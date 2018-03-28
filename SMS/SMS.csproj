@@ -275,10 +275,10 @@
     <Compile Include="Models\Teacher.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TeacherEmployeeUserViewModel.cs" />
     <Compile Include="Models\TeacherSubjectClass.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TeacherEmployeeUserViewModel.cs" />
     <Compile Include="Models\Test.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -286,10 +286,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\aspnet-SMS-20180327053948.mdf" />
-    <Content Include="App_Data\aspnet-SMS-20180327053948_log.ldf">
-      <DependentUpon>aspnet-SMS-20180327053948.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -375,6 +371,7 @@
     <Content Include="Views\Accountant\ListStudent.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
