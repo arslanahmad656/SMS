@@ -7,6 +7,8 @@ using System.ComponentModel.DataAnnotations;
 using SMS.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
+using System.Net;
 
 namespace SMS.Controllers
 {
@@ -285,8 +287,6 @@ namespace SMS.Controllers
                 throw;
             }
         }
-
-        #endregion
         
     }
 }
