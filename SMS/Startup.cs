@@ -24,7 +24,6 @@ namespace SMS
             AddParentRole();
             AddAccountantRole();
             AddDesignations();
-            AddAttendanceStatus();
         }
         private void AddAccountantRole()
         {

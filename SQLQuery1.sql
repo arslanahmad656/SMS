@@ -1,3 +1,1 @@
-﻿select * from teacher
-
-select * from employee
+﻿select * from designation
