@@ -7,8 +7,6 @@ using System.ComponentModel.DataAnnotations;
 using SMS.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using System.Net;
-using System.Data.Entity;
 
 namespace SMS.Controllers
 {
@@ -219,7 +217,76 @@ namespace SMS.Controllers
             ViewBag.Name = s.Name;
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateEmployee(Employee model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Employees.Add(model);
+                    db.SaveChanges();
+                    if(db.Designations.Find(model.DesignationId).Title.Equals("teacher", StringComparison.OrdinalIgnoreCase))
+                    {
+                        var teacher = new Teacher
+                        {
+                            EmployeeId = model.Id
+                        };
+                        db.Teachers.Add(teacher);
+                        db.SaveChanges();
+                    }
+                    return RedirectToAction("EmployeeList");
+                }
+                else
+                {
+                    throw new Exception("Model state is invalid");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public ActionResult EditEmployee(int id)
+        {
+            var model = db.Employees.Find(id);
+            if(model == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+            //ViewBag.DesignationId = new SelectList(db.Designations, "Id", "Title", model.DesignationId);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditEmployee(Employee model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Entry(model).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("EmployeeList");
+                }
+                else
+                {
+                    throw new Exception("Model state is invalid");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        #endregion
         
     }
-
 }
