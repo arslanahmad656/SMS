@@ -24,6 +24,7 @@ namespace SMS
             AddParentRole();
             AddAccountantRole();
             AddDesignations();
+            AddDummyParent();
         }
         private void AddAccountantRole()
         {
@@ -153,6 +154,36 @@ namespace SMS
                 {
                     db.Designations.Add(designation);
                 }
+                db.SaveChanges();
+            }
+        }
+
+        private void AddDummyParent()
+        {
+            var parentsInDbCount = db.Parents.Count();
+            if (parentsInDbCount == 0)
+            {
+
+                var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+                var defaultUserName = "parent@sms.com";
+                var defaultPassword = "updating";
+                var user = new ApplicationUser
+                {
+                    UserName = defaultUserName
+                };
+                var result = userManager.Create(user, defaultPassword);
+                if (!result.Succeeded)
+                {
+                    throw new Exception("Cannot create a dummy user for dummy parent ");
+                }
+                var parent = new Parent
+                {
+                    Name = "Dummy Parent",
+                    CNIC = "1234",
+                    Contact = "+9241",
+                    UserId = user.Id,
+                };
+                db.Parents.Add(parent);
                 db.SaveChanges();
             }
         }
