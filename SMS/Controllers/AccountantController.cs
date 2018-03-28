@@ -80,6 +80,8 @@ namespace SMS.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
             ViewBag.ParentId = new SelectList(db.Parents, "Id", "Name", model.ParentId);
+            int? studentClassId = db.StudentClasses.Where(sc => sc.StudentId == id).FirstOrDefault()?.Id ?? null;
+            ViewBag.ClassId = new SelectList(db.Classes, "Id", "Title", studentClassId);
             return View(model);           
         }
 
@@ -92,14 +94,29 @@ namespace SMS.Controllers
                 if (ModelState.IsValid)
                 {
                     db.Entry(model).State = EntityState.Modified;
+                    var classId = Convert.ToInt32(Request.Form["ClassId"]);
+                    StudentClass studentClass = null;
+                    try
+                    {
+                        studentClass = db.StudentClasses.Where(sc => sc.StudentId == model.Id).First();
+                        studentClass.ClassId = classId;
+                        db.Entry(studentClass).State = EntityState.Modified;
+                    }
+                    catch
+                    {
+                        studentClass = new StudentClass
+                        {
+                            StudentId = model.Id,
+                            ClassId = classId
+                        };
+                        db.StudentClasses.Add(studentClass);
+                    }
                     db.SaveChanges();
                     return RedirectToAction("ListStudent");
-
                 }
                 else
                 {
                     throw new Exception("Model State Invalid!");
-
                 }
             }
             catch
@@ -110,35 +127,32 @@ namespace SMS.Controllers
 
         public ActionResult DeleteStudent(int id)
         {
-            try
+            Student model = db.Students.Find(id);
+            if (model == null)
             {
-                if (ModelState.IsValid)
-                {
-                    Student model = db.Students.Find(id);
-                    if (model == null)
-                    {
-                        return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-                    }
-                    db.Entry(model).State = EntityState.Deleted;
-                    db.SaveChangesAsync();
-
-                    //code to delete student from parent
-
-                    return RedirectToAction("ListStudent");
-                }
-                else
-                {
-                    throw new Exception("Model State Invalid");
-                }
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
-            catch
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("DeleteStudent")]
+        public ActionResult DeleteStudentConfirmed(int id)
+        {
+            Student model = db.Students.Find(id);
+            if (model == null)
             {
-                throw;
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
+            db.Entry(model).State = EntityState.Deleted;
+            db.SaveChanges();
+            return RedirectToAction("ListStudent");
         }
         
 
         #endregion
+
         #region Parent
 
         public ActionResult CreateParent()
@@ -316,20 +330,16 @@ namespace SMS.Controllers
 
         #endregion
 
-        public ActionResult Something()
+        #region Employee
+
+        public ActionResult EmployeeList()
         {
-            var s = new DummyModel
-            {
-                Age = 30,
-                Name = "Someone"
-            };
-            //return View(new DummyModel
-            //{
-            //    Age = 30,
-            //    Name = "Someone"
-            //});
-            ViewBag.Age = s.Age;
-            ViewBag.Name = s.Name;
+            return View(db.Employees);
+        }
+
+        public ActionResult CreateEmployee()
+        {
+            ViewBag.DesignationId = new SelectList(db.Designations, "Id", "Title");
             return View();
         }
 
@@ -373,7 +383,7 @@ namespace SMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
-            //ViewBag.DesignationId = new SelectList(db.Designations, "Id", "Title", model.DesignationId);
+            ViewBag.DesignationId = new SelectList(db.Designations, "Id", "Title", model.DesignationId);
             return View(model);
         }
 
@@ -400,6 +410,29 @@ namespace SMS.Controllers
                 throw;
             }
         }
-        
+
+        public ActionResult DeleteEmployee(int id)
+        {
+            var model = db.Employees.Find(id);
+            if(model == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("DeleteEmployee")]
+        public ActionResult DeleteEmployeeConfirmed(int id)
+        {
+            var model = db.Employees.Find(id);
+            db.Employees.Remove(model);
+            db.SaveChanges();
+            return RedirectToAction("ListEmployee");
+        }
+
+        #endregion
+
     }
 }

@@ -364,15 +364,17 @@
     <Content Include="Views\Accountant\Something.cshtml" />
     <Content Include="Views\Accountant\CreateTeacher.cshtml" />
     <Content Include="Views\Accountant\ListTeacher.cshtml" />
-    <Content Include="Views\Accountant\CreateEmployee.cshtml" />
-    <Content Include="Views\Accountant\EmployeeList.cshtml" />
-    <Content Include="Views\Accountant\EditEmployee.cshtml" />
     <Content Include="Views\Accountant\CreateStudent.cshtml" />
     <Content Include="Views\Accountant\EditStudent.cshtml" />
     <Content Include="Views\Accountant\ListStudent.cshtml" />
     <Content Include="Views\Accountant\ListParent.cshtml" />
     <Content Include="Views\Accountant\EditParent.cshtml" />
     <Content Include="Views\Accountant\DeleteParent.cshtml" />
+    <Content Include="Views\Accountant\DeleteStudent.cshtml" />
+    <Content Include="Views\Accountant\DeleteEmployee.cshtml" />
+    <Content Include="Views\Accountant\CreateEmployee.cshtml" />
+    <Content Include="Views\Accountant\EditEmployee.cshtml" />
+    <Content Include="Views\Accountant\EmployeeList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
