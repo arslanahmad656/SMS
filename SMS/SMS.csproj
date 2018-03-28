@@ -361,7 +361,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Accountant\CreateParent.cshtml" />
-    <Content Include="Views\Accountant\Something.cshtml" />
     <Content Include="Views\Accountant\CreateTeacher.cshtml" />
     <Content Include="Views\Accountant\ListTeacher.cshtml" />
     <Content Include="Views\Accountant\CreateStudent.cshtml" />
