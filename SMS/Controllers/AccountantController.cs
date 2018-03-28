@@ -151,6 +151,7 @@ namespace SMS.Controllers
         }
 
         #endregion
+
         #region Parent
 
         public ActionResult CreateParent()
@@ -222,20 +223,16 @@ namespace SMS.Controllers
 
         #endregion
 
-        public ActionResult Something()
+        #region Employee
+
+        public ActionResult EmployeeList()
         {
-            var s = new DummyModel
-            {
-                Age = 30,
-                Name = "Someone"
-            };
-            //return View(new DummyModel
-            //{
-            //    Age = 30,
-            //    Name = "Someone"
-            //});
-            ViewBag.Age = s.Age;
-            ViewBag.Name = s.Name;
+            return View(db.Employees);
+        }
+
+        public ActionResult CreateEmployee()
+        {
+            ViewBag.DesignationId = new SelectList(db.Designations, "Id", "Title");
             return View();
         }
 
@@ -279,7 +276,7 @@ namespace SMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
-            //ViewBag.DesignationId = new SelectList(db.Designations, "Id", "Title", model.DesignationId);
+            ViewBag.DesignationId = new SelectList(db.Designations, "Id", "Title", model.DesignationId);
             return View(model);
         }
 
@@ -306,6 +303,29 @@ namespace SMS.Controllers
                 throw;
             }
         }
-        
+
+        public ActionResult DeleteEmployee(int id)
+        {
+            var model = db.Employees.Find(id);
+            if(model == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("DeleteEmployee")]
+        public ActionResult DeleteEmployeeConfirmed(int id)
+        {
+            var model = db.Employees.Find(id);
+            db.Employees.Remove(model);
+            db.SaveChanges();
+            return RedirectToAction("ListEmployee");
+        }
+
+        #endregion
+
     }
 }
