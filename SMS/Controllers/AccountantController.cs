@@ -80,6 +80,8 @@ namespace SMS.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
             ViewBag.ParentId = new SelectList(db.Parents, "Id", "Name", model.ParentId);
+            int? studentClassId = db.StudentClasses.Where(sc => sc.StudentId == id).FirstOrDefault()?.Id ?? null;
+            ViewBag.ClassId = new SelectList(db.Classes, "Id", "Title", studentClassId);
             return View(model);           
         }
 
@@ -92,14 +94,29 @@ namespace SMS.Controllers
                 if (ModelState.IsValid)
                 {
                     db.Entry(model).State = EntityState.Modified;
+                    var classId = Convert.ToInt32(Request.Form["ClassId"]);
+                    StudentClass studentClass = null;
+                    try
+                    {
+                        studentClass = db.StudentClasses.Where(sc => sc.StudentId == model.Id).First();
+                        studentClass.ClassId = classId;
+                        db.Entry(studentClass).State = EntityState.Modified;
+                    }
+                    catch
+                    {
+                        studentClass = new StudentClass
+                        {
+                            StudentId = model.Id,
+                            ClassId = classId
+                        };
+                        db.StudentClasses.Add(studentClass);
+                    }
                     db.SaveChanges();
                     return RedirectToAction("ListStudent");
-
                 }
                 else
                 {
                     throw new Exception("Model State Invalid!");
-
                 }
             }
             catch
@@ -110,31 +127,27 @@ namespace SMS.Controllers
 
         public ActionResult DeleteStudent(int id)
         {
-            try
+            Student model = db.Students.Find(id);
+            if (model == null)
             {
-                if (ModelState.IsValid)
-                {
-                    Student model = db.Students.Find(id);
-                    if (model == null)
-                    {
-                        return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-                    }
-                    db.Entry(model).State = EntityState.Deleted;
-                    db.SaveChangesAsync();
-
-                    //code to delete student from parent
-
-                    return RedirectToAction("ListStudent");
-                }
-                else
-                {
-                    throw new Exception("Model State Invalid");
-                }
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
-            catch
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("DeleteStudent")]
+        public ActionResult DeleteStudentConfirmed(int id)
+        {
+            Student model = db.Students.Find(id);
+            if (model == null)
             {
-                throw;
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
+            db.Entry(model).State = EntityState.Deleted;
+            db.SaveChanges();
+            return RedirectToAction("ListStudent");
         }
 
         #endregion

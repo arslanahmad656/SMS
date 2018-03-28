@@ -369,6 +369,7 @@
     <Content Include="Views\Accountant\CreateStudent.cshtml" />
     <Content Include="Views\Accountant\EditStudent.cshtml" />
     <Content Include="Views\Accountant\ListStudent.cshtml" />
+    <Content Include="Views\Accountant\DeleteStudent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
