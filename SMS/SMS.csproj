@@ -52,6 +52,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -174,8 +176,107 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AspNetRole.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUser.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaim.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogin.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Attendance.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AttendanceStatu.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Class.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Complaint.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C__MigrationHistory.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Designation.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Employee.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeAttendance.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FeeChallan.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FinanceReport.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Message.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MessageClass.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MessageEmployee.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MessageStudent.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Parent.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PaySlip.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Student.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StudentAttendance.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StudentClass.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StudentTest.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Subject.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Teacher.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TeacherSubjectClass.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Test.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -186,8 +287,25 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\Model.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model.edmx</DependentUpon>
+      <LastGenOutput>Model.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model.edmx</DependentUpon>
+      <LastGenOutput>Model.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\Model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model.edmx.diagram">
+      <DependentUpon>Model.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -200,7 +318,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -245,6 +365,9 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
