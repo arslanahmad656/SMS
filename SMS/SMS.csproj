@@ -254,6 +254,7 @@
     <Compile Include="Models\Parent.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ParentUserVIewModel.cs" />
     <Compile Include="Models\PaySlip.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -369,6 +370,9 @@
     <Content Include="Views\Accountant\CreateStudent.cshtml" />
     <Content Include="Views\Accountant\EditStudent.cshtml" />
     <Content Include="Views\Accountant\ListStudent.cshtml" />
+    <Content Include="Views\Accountant\ListParent.cshtml" />
+    <Content Include="Views\Accountant\EditParent.cshtml" />
+    <Content Include="Views\Accountant\DeleteParent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

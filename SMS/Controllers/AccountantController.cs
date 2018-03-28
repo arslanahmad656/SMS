@@ -136,6 +136,7 @@ namespace SMS.Controllers
                 throw;
             }
         }
+        
 
         #endregion
         #region Parent
@@ -145,8 +146,114 @@ namespace SMS.Controllers
             return View();
         }
 
-        #endregion
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateParent(ParentUserVIewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+                    var UserName = model.Username;
+                    var Password = model.Password;
+                    var user = new ApplicationUser
+                    {
+                        UserName = UserName
+                    };
+                    var result = userManager.Create(user, Password);
+                    if (!result.Succeeded)
+                    {
+                        throw new Exception("Could not create user for parent");
+                    }
+                    Parent parent = new Parent();
+                    parent.UserId = user.Id;
+                    parent.Name = model.Name;
+                    parent.CNIC = model.CNIC;
+                    parent.Contact = model.Contact;
 
+                    db.Parents.Add(parent);
+                    db.SaveChanges();
+
+                    return RedirectToAction("ListParent");
+
+                }
+                throw new Exception("Model State Invalid in Create Parent");
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public ActionResult ListParent()
+        {
+            return View(db.Parents);
+        }
+
+        public ActionResult EditParent(int id)
+        {
+            var model = db.Parents.Find(id);
+            if (model == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+            //ViewBag.DesignationId = new SelectList(db.Designations, "Id", "Title", model.DesignationId);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditParent (Parent model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Entry(model).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("ListParent");
+                }
+                throw new Exception("Model State invalid in Edit Parent");
+
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public ActionResult DeleteParent(int id)
+        {
+            var model = db.Parents.Find(id);
+            if(model == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("DeleteParent")]
+        public ActionResult DeleteParentConfirmed(int id)
+        {
+            var model = db.Parents.Find(id);
+            var userId = model.UserId;
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            var user = context.Users.Find(userId);
+            var result = userManager.Delete(user);
+            if (!result.Succeeded)
+            {
+                throw new Exception("Could not delete the parent");
+            }
+            //db.Parents.Remove(model);
+            //db.SaveChanges();
+            return RedirectToAction("ListParent");
+        }
+
+        #endregion
+        
         #region Teacher
 
         public ActionResult ListTeacher()
