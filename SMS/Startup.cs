@@ -24,6 +24,7 @@ namespace SMS
             AddParentRole();
             AddAccountantRole();
             AddDesignations();
+            AddAttendanceStatus();
         }
         private void AddAccountantRole()
         {
@@ -152,6 +153,34 @@ namespace SMS
                 foreach (var designation in designations)
                 {
                     db.Designations.Add(designation);
+                }
+                db.SaveChanges();
+            }
+        }
+
+        private void AddAttendanceStatus()
+        {
+            var attendanceStatusCount = db.AttendanceStatus.Count();
+            if(attendanceStatusCount == 0)
+            {
+                var attendanceStatusList = new List<AttendanceStatu>
+                {
+                    new AttendanceStatu
+                    {
+                        Title = "P"
+                    },
+                    new AttendanceStatu
+                    {
+                        Title = "A"
+                    },
+                    new AttendanceStatu
+                    {
+                        Title = "L"
+                    }
+                };
+                foreach (var attendanceStatus in attendanceStatusList)
+                {
+                    db.AttendanceStatus.Add(attendanceStatus);
                 }
                 db.SaveChanges();
             }
