@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using SMS.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Net;
 
 namespace SMS.Controllers
 {
@@ -23,7 +24,6 @@ namespace SMS.Controllers
         }
 
         #region Student
-
 
 
         #endregion
@@ -96,24 +96,88 @@ namespace SMS.Controllers
                 throw;
             }
         }
-
-        #endregion
-
-        public ActionResult Something()
+        public ActionResult DeleteEmployee(int id)
         {
-            var s = new DummyModel
+            var model = db.Employees.Find(id);
+            if (model == null)
             {
-                Age = 30,
-                Name = "Someone"
-            };
-            //return View(new DummyModel
-            //{
-            //    Age = 30,
-            //    Name = "Someone"
-            //});
-            ViewBag.Age = s.Age;
-            ViewBag.Name = s.Name;
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+            return View(model);
+        }
+        #endregion
+        #region FinanceReport
+        public ActionResult CreateFinanceReport()
+        {
+           
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateFinanceReport(FinanceReport report)
+        {
+            if (ModelState.IsValid)
+            {
+                report.Date = DateTime.Now;
+                db.FinanceReports.Add(report);
+                db.SaveChanges();
+                return null;
+            }
+            else {
+                throw new Exception("Model state is invalid");
+            }
+        }
+        public ActionResult ListFinanceReport()
+        {
+            return View(db.FinanceReports);
+        }
+        public ActionResult EditFinanceReport(int id)
+        {
+            var model = db.FinanceReports.Find(id);
+            if (model == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+            return View(model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditFinanceReport(FinanceReport model)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(model).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return View(model);
+            }
+            else
+            {
+                throw new Exception("model not found");
+            }
+        }
+        public ActionResult DeleteFinanceReport(int id)
+        {
+            var model = db.FinanceReports.Find(id);
+            if (model == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+          
+            db.Entry(model).State = System.Data.Entity.EntityState.Deleted;
+            db.SaveChanges();
+            return RedirectToAction("ListFinanceReport");
+        }
+        #endregion
+
+        #region AdmissionForm
+        public ActionResult AddmissionForm()
+        {
+            return View();
+        }
+        #endregion
+
+
+
+      
     }
 }

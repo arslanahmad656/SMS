@@ -222,7 +222,7 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Views\ManageViewModels.cs" />
     <Compile Include="Models\Message.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -362,6 +362,10 @@
     <Content Include="Views\Accountant\Something.cshtml" />
     <Content Include="Views\Accountant\CreateTeacher.cshtml" />
     <Content Include="Views\Accountant\ListTeacher.cshtml" />
+    <Content Include="Views\Accountant\CreateFinanceReport.cshtml" />
+    <Content Include="Views\Accountant\ListFinanceReport.cshtml" />
+    <Content Include="Views\Accountant\EditFinanceReport.cshtml" />
+    <Content Include="Views\Accountant\DeleteEmployee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
