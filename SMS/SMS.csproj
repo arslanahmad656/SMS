@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <FilesToIncludeForPublish>AllFilesInTheProject</FilesToIncludeForPublish>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -253,6 +254,7 @@
     <Compile Include="Models\Parent.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ParentUserVIewModel.cs" />
     <Compile Include="Models\PaySlip.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -274,10 +276,10 @@
     <Compile Include="Models\Teacher.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TeacherEmployeeUserViewModel.cs" />
     <Compile Include="Models\TeacherSubjectClass.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TeacherEmployeeUserViewModel.cs" />
     <Compile Include="Models\Test.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -359,9 +361,19 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Accountant\CreateParent.cshtml" />
-    <Content Include="Views\Accountant\Something.cshtml" />
     <Content Include="Views\Accountant\CreateTeacher.cshtml" />
     <Content Include="Views\Accountant\ListTeacher.cshtml" />
+    <Content Include="Views\Accountant\CreateStudent.cshtml" />
+    <Content Include="Views\Accountant\EditStudent.cshtml" />
+    <Content Include="Views\Accountant\ListStudent.cshtml" />
+    <Content Include="Views\Accountant\ListParent.cshtml" />
+    <Content Include="Views\Accountant\EditParent.cshtml" />
+    <Content Include="Views\Accountant\DeleteParent.cshtml" />
+    <Content Include="Views\Accountant\DeleteStudent.cshtml" />
+    <Content Include="Views\Accountant\DeleteEmployee.cshtml" />
+    <Content Include="Views\Accountant\CreateEmployee.cshtml" />
+    <Content Include="Views\Accountant\EditEmployee.cshtml" />
+    <Content Include="Views\Accountant\EmployeeList.cshtml" />
     <Content Include="Views\Accountant\CreateFinanceReport.cshtml" />
     <Content Include="Views\Accountant\ListFinanceReport.cshtml" />
     <Content Include="Views\Accountant\EditFinanceReport.cshtml" />

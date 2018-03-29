@@ -24,6 +24,9 @@ namespace SMS
             AddParentRole();
             AddAccountantRole();
             AddDesignations();
+            AddDummyParent();
+            AddDummyClasses();
+            AddAttendanceStatus();
         }
         private void AddAccountantRole()
         {
@@ -156,5 +159,99 @@ namespace SMS
                 db.SaveChanges();
             }
         }
-    }   
+
+        private void AddDummyClasses()
+        {
+            var classesInDbCount = db.Classes.Count();
+            if (classesInDbCount == 0)
+            {
+                var classes = new List<Class>
+                {
+                    new Class
+                    {
+                       Title="Nursery",
+                       Fee=1000,
+                    },
+                    new Class
+                    {
+                        Title = "1",
+                        Fee=1000,
+                    },
+                    new Class
+                    {
+                        Title = "2",
+                        Fee=1000,
+                    },
+                    new Class
+                    {
+                        Title = "3",
+                        Fee=1000,
+                    }
+                };
+                foreach (var tempClass in classes)
+                {
+                    db.Classes.Add(tempClass);
+                }
+                db.SaveChanges();
+            }
+        }
+
+        private void AddDummyParent()
+        {
+            var parentsInDbCount = db.Parents.Count();
+            if (parentsInDbCount == 0)
+            {
+
+                var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+                var defaultUserName = "parent@sms.com";
+                var defaultPassword = "updating";
+                var user = new ApplicationUser
+                {
+                    UserName = defaultUserName
+                };
+                var result = userManager.Create(user, defaultPassword);
+                if (!result.Succeeded)
+                {
+                    throw new Exception("Cannot create a dummy user for dummy parent ");
+                }
+                var parent = new Parent
+                {
+                    Name = "Dummy Parent",
+                    CNIC = "1234",
+                    Contact = "+9241",
+                    UserId = user.Id,
+                };
+                db.Parents.Add(parent);
+                db.SaveChanges();
+            }
+        }
+
+        private void AddAttendanceStatus()
+        {
+            var attendanceStatusCount = db.AttendanceStatus.Count();
+            if (attendanceStatusCount == 0)
+            {
+                var attendanceStatusList = new List<AttendanceStatu>
+                {
+                    new AttendanceStatu
+                    {
+                        Title = "P"
+                    },
+                    new AttendanceStatu
+                    {
+                        Title = "A"
+                    },
+                    new AttendanceStatu
+                    {
+                        Title = "L"
+                    }
+                };
+                foreach (var attendanceStatus in attendanceStatusList)
+                {
+                    db.AttendanceStatus.Add(attendanceStatus);
+                }
+                db.SaveChanges();
+            }
+        }
+    }
 }
