@@ -327,15 +327,7 @@ namespace SMS.Controllers
                 throw;
             }
         }
-        public ActionResult DeleteEmployee(int id)
-        {
-            var model = db.Employees.Find(id);
-            if (model == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-            return View(model);
-        }
+        
         #endregion
         #region FinanceReport
         public ActionResult CreateFinanceReport()
@@ -503,3 +495,4 @@ namespace SMS.Controllers
         }
     }
 }
+#endregion
