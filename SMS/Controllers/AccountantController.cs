@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,6 +10,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 using System.Net;
+using Rotativa;
+using Rotativa.MVC;
 
 namespace SMS.Controllers
 {
@@ -493,6 +496,27 @@ namespace SMS.Controllers
             db.SaveChanges();
             return RedirectToAction("ListEmployee");
         }
+        #endregion
+
+        #region Printing
+
+        public ActionResult PrintAdmissionForm()
+        {
+            var result = new PartialViewAsPdf("AdmissionForm");
+            return result;
+        }
+
+
+        public ActionResult PrintFeeChallan(int id)
+        {
+            var model = db.Students.Find(id);
+            var result = new PartialViewAsPdf("PrintFeeChallan",model);
+            return result;
+           
+        }
+
+
+        #endregion
     }
 }
-#endregion
+
