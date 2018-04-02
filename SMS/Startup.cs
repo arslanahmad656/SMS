@@ -27,6 +27,7 @@ namespace SMS
             AddDummyParent();
             AddDummyClasses();
             AddAttendanceStatus();
+            AddDummySubjects();
         }
         private void AddAccountantRole()
         {
@@ -226,6 +227,7 @@ namespace SMS
             }
         }
 
+
         private void AddAttendanceStatus()
         {
             var attendanceStatusCount = db.AttendanceStatus.Count();
@@ -253,5 +255,41 @@ namespace SMS
                 db.SaveChanges();
             }
         }
+        private void AddDummySubjects()
+        {
+            var subjectsInDbCount = db.Subjects.Count();
+            if (subjectsInDbCount == 0)
+            {
+                var subjects = new List<Subject>
+                {
+                    new Subject
+                    {
+                       Title="English",
+                    },
+                    new Subject
+                    {
+                        Title = "Urdu",
+                        
+                    },
+                    new Subject
+                    {
+                        Title = "Mathematics",
+                        
+                    },
+                    new Subject
+                    {
+                        Title = "Islamiyat",
+                        
+                    }
+                };
+                foreach (var tempSubject in subjects)
+                {
+                    db.Subjects.Add(tempSubject);
+                }
+                db.SaveChanges();
+            }
+        }
+
+
     }
 }
