@@ -50,6 +50,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Rotativa.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.Core.2.0.0\lib\net45\Rotativa.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Rotativa.MVC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.MVC.2.0.3\lib\net45\Rotativa.MVC.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -223,6 +231,8 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\TeacherNameViewModel.cs" />
+    <Compile Include="Models\TestViewModel.cs" />
     <Compile Include="Views\ManageViewModels.cs" />
     <Compile Include="Models\Message.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -303,6 +313,7 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\Model.edmx">
@@ -312,6 +323,8 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
+    <Content Include="App_Browsers\qt.browser" />
+    <None Include="Properties\PublishProfiles\desktop publish.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -378,6 +391,11 @@
     <Content Include="Views\Accountant\ListFinanceReport.cshtml" />
     <Content Include="Views\Accountant\EditFinanceReport.cshtml" />
     <Content Include="Views\Accountant\DeleteEmployee.cshtml" />
+    <Content Include="Views\Accountant\PrintFeeChallan.cshtml" />
+    <Content Include="Views\Accountant\AdmissionForm.cshtml" />
+    <Content Include="Views\Accountant\CreateTest.cshtml" />
+    <Content Include="Views\Accountant\ListTest.cshtml" />
+    <Content Include="Views\Accountant\EditTest.cshtml" />
     <Content Include="Views\Admin\ViewStudent.cshtml" />
     <Content Include="Views\Admin\EditStudent.cshtml" />
     <Content Include="Views\Admin\DeleteStudent.cshtml" />

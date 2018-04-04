@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,6 +10,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 using System.Net;
+using Rotativa;
+using Rotativa.MVC;
 
 namespace SMS.Controllers
 {
@@ -494,8 +497,155 @@ namespace SMS.Controllers
             return RedirectToAction("ListEmployee");
         }
         #endregion
-   
-     }
 
+        #region Printing
+
+        public ActionResult PrintAdmissionForm()
+        {
+            var result = new PartialViewAsPdf("AdmissionForm");
+            return result;
+        }
+
+
+        public ActionResult PrintFeeChallan(int id)
+        {
+            var model = db.Students.Find(id);
+            var result = new PartialViewAsPdf("PrintFeeChallan",model);
+            return result;
+           
+        }
+
+
+        #endregion
+
+        #region test
+
+        public ActionResult CreateTest()
+        {
+
+            //ViewBag.TeacherId = new SelectList(db.Employees, "Id", "Name");
+
+            //var teachers = db.Teachers.Joidb.Employees, (ti => ti.EmployeeId), (ei => ei.Id),((ti, ei)=> new {Teachers=ti, Employees=ei }));
+            var teacher = db.Teachers.ToList();
+            List<TeacherNameViewModel> teacherNames = new List<TeacherNameViewModel>();
+            foreach (Teacher i in teacher)
+            {
+                TeacherNameViewModel temp= new TeacherNameViewModel();
+                temp.Id = i.Id;
+                temp.Name = i.Employee.Name;
+                teacherNames.Add(temp);            
+            
+            };
+            ViewBag.TeacherId = new SelectList(teacherNames, "Id", "Name");
+            ViewBag.ClassId = new SelectList(db.Classes, "Id", "Title");
+            ViewBag.SubjectId = new SelectList(db.Subjects, "Id", "TItle");
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateTest (TestViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    
+
+                    Test test = new Test();
+                    TeacherSubjectClass temp = db.TeacherSubjectClasses.Where(st => st.SubjectId == model.SubjectId && st.TeacherId == model.TeacherId && st.ClassId == model.ClassId).SingleOrDefault();
+                    test.TeacherSubjectClassId = temp.Id;
+                    test.Date = model.Date;
+                    //test.Date = DateTime.Now;
+                    test.Type = model.Type;
+                    test.TotalMarks = model.TotalMarks;
+                    db.Tests.Add(test);
+                    db.SaveChanges();
+                    return RedirectToAction("ListTest");              
+                    
+                    
+                }
+                throw new Exception ("Error in Creating test") ;
+            }
+            catch
+            {
+                throw;
+            }
+
+        }
+        public ActionResult ListTest()
+        {
+            return View(db.Tests);
+        }
+        public ActionResult EditTest(int id)
+        {
+            try
+            {
+                if (ModelState.IsValid) {
+                    Test test = db.Tests.Find(id);
+                    var teacher = db.Teachers.ToList();
+                    List<TeacherNameViewModel> teacherNames = new List<TeacherNameViewModel>();
+                    foreach (Teacher i in teacher)
+                    {
+                        TeacherNameViewModel temp = new TeacherNameViewModel();
+                        temp.Id = i.Id;
+                        temp.Name = i.Employee.Name;
+                        teacherNames.Add(temp);
+
+                    };
+                    ViewBag.TeacherId = new SelectList(teacherNames, "Id", "Name");
+                    ViewBag.ClassId = new SelectList(db.Classes, "Id", "Title");
+                    ViewBag.SubjectId = new SelectList(db.Subjects, "Id", "TItle");
+
+                    return View(test);
+                }
+                throw new Exception("Model State Invalid in editting a test");
+            }
+            catch
+            {
+                throw new Exception("Could not edit test");
+            }
+
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditTest (Test model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Test test = db.Tests.Find(model.Id);
+                    if (test == null)
+                    {
+                        throw new Exception("Could not find the test");
+                    }
+                    test.Date = model.Date;
+                    test.TotalMarks = model.TotalMarks;
+                    test.Type=model.Type;
+                    var SubjectId = Int32.Parse(Request.Form["SubjectId"]);
+                    var TeacherId = Int32.Parse(Request.Form["TeacherId"]);
+                    var ClassId = Int32.Parse(Request.Form["ClassId"]);
+
+                    TeacherSubjectClass temp = db.TeacherSubjectClasses.Where(st => st.SubjectId == SubjectId && st.TeacherId == TeacherId && st.ClassId == ClassId).SingleOrDefault();
+                    if (temp == null)
+                    {
+                        throw new Exception("Could not fint TeacheSubjectClass");
+                    }
+                    test.TeacherSubjectClassId = temp.Id;
+                   
+                    db.Entry(test).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("ListTest");
+                }
+                throw new Exception("ModelState Invalid in Edit Test");
+
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        #endregion   
+    }
 }
-
