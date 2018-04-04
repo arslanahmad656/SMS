@@ -493,6 +493,9 @@ namespace SMS.Controllers
             db.SaveChanges();
             return RedirectToAction("ListEmployee");
         }
-    }
+        #endregion
+   
+     }
+
 }
-#endregion
+
