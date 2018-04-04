@@ -1,0 +1,65 @@
+﻿@model IEnumerable<SMS.Models.Test>
+
+@{
+    ViewBag.Title = "ListTest";
+}
+
+<h2>ListTest</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalMarks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TeacherSubjectClass.Teacher.Employee.Name)
+        </th>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.TeacherSubjectClass.Subject.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TeacherSubjectClass.Class.Title)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalMarks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TeacherSubjectClass.Teacher.Employee.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TeacherSubjectClass.Subject.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TeacherSubjectClass.Class.Title)
+        </td>
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
