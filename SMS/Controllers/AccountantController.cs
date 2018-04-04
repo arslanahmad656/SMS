@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -332,6 +331,7 @@ namespace SMS.Controllers
         }
         
         #endregion
+
         #region FinanceReport
         public ActionResult CreateFinanceReport()
         {
@@ -692,4 +692,3 @@ namespace SMS.Controllers
         #endregion   
     }
 }
-
