@@ -395,6 +395,7 @@
     <Content Include="Views\Accountant\CreateTest.cshtml" />
     <Content Include="Views\Accountant\ListTest.cshtml" />
     <Content Include="Views\Accountant\EditTest.cshtml" />
+    <Content Include="Views\Accountant\DeleteTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
