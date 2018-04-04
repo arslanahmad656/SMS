@@ -552,7 +552,7 @@ namespace SMS.Controllers
                     
 
                     Test test = new Test();
-                    TeacherSubjectClass temp = db.TeacherSubjectClasses.Where(st => st.SubjectId == model.SubjectId && st.TeacherId == model.TeacherId && st.ClassId == model.ClassId).SingleOrDefault();
+                    TeacherSubjectClass temp = db.TeacherSubjectClasses.Where(st => st.SubjectId == model.SubjectId && st.TeacherId == model.TeacherId && st.ClassId == model.ClassId && st.IsActive==true).SingleOrDefault();
                     test.TeacherSubjectClassId = temp.Id;
                     test.Date = model.Date;
                     //test.Date = DateTime.Now;
@@ -606,7 +606,7 @@ namespace SMS.Controllers
         //    }
 
         //}
-        
+
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public ActionResult EditTest (Test model)
@@ -627,13 +627,13 @@ namespace SMS.Controllers
         //            var TeacherId = Int32.Parse(Request.Form["TeacherId"]);
         //            var ClassId = Int32.Parse(Request.Form["ClassId"]);
 
-        //            TeacherSubjectClass temp = db.TeacherSubjectClasses.Where(st => st.SubjectId == SubjectId && st.TeacherId == TeacherId && st.ClassId == ClassId).SingleOrDefault();
+        //TeacherSubjectClass temp = db.TeacherSubjectClasses.Where(st => st.SubjectId == SubjectId && st.TeacherId == TeacherId && st.ClassId == ClassId && st.IsActive == true).SingleOrDefault();
         //            if (temp == null)
         //            {
         //                throw new Exception("Could not fint TeacheSubjectClass");
         //            }
         //            test.TeacherSubjectClassId = temp.Id;
-                   
+
         //            db.Entry(test).State = EntityState.Modified;
         //            db.SaveChanges();
         //            return RedirectToAction("ListTest");
