@@ -173,6 +173,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\ApplicationWideData.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="Models\AttendanceStatu.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AttendanceViewModel.cs" />
     <Compile Include="Models\Class.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -399,6 +401,8 @@
     <Content Include="Views\Admin\ViewStudent.cshtml" />
     <Content Include="Views\Admin\EditStudent.cshtml" />
     <Content Include="Views\Admin\DeleteStudent.cshtml" />
+    <Content Include="Views\Accountant\MarkStudentAttendance.cshtml" />
+    <Content Include="Views\Accountant\StudentAttendanceList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

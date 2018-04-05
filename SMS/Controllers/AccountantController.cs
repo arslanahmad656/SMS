@@ -646,6 +646,82 @@ namespace SMS.Controllers
                 throw;
             }
         }
-        #endregion   
+        #endregion
+
+        #region Attendance
+        public ActionResult StudentAttendanceList()
+        {
+            var studentAttendance = db.StudentAttendances.Select(sa => new AttendanceViewModel
+            {
+                AttendanceStatusCode = sa.Attendance.AttendanceStatu.code,
+                Date = sa.Attendance.Date,
+                TargetId = sa.StudentId
+            }).ToList();
+            var studentNameDictionary = new Dictionary<int, string>();
+            try
+            {
+                studentAttendance.ForEach(sa => studentNameDictionary.Add(sa.TargetId, db.Students.Find(sa.TargetId).Name));
+            }
+            catch (ArgumentException)
+            {
+                // Nothing to be done if the key with same id has already been added
+            }
+            ViewBag.StudentNameDictionary = studentNameDictionary;
+            return View(studentAttendance);
+        }
+
+        public ActionResult MarkStudentAttendance()
+        {
+            ViewBag.AttendanceStatusCode = new SelectList(db.AttendanceStatus, "Code", "Title");
+            ViewBag.TargetId = new SelectList(db.Students, "Id", "Name");
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult MarkStudentAttendance(AttendanceViewModel model)
+        {
+            try
+            {
+                if(ModelState.IsValid)
+                {
+                    //var attendance = new Attendance
+                    //{
+                    //    AttendanceStatusId = db.AttendanceStatus.Where(a => a.code == model.AttendanceStatusCode).First().Id,
+                    //    Date = model.Date
+                    //};
+                    //db.Attendances.Add(attendance);
+                    //db.SaveChanges();
+
+                    //var studentAttendance = new StudentAttendance
+                    //{
+                    //    StudentId = model.TargetId,
+                    //    AttendanceId = attendance.Id
+                    //};
+                    //db.StudentAttendances.Add(studentAttendance);
+                    //db.SaveChanges();
+                    var res = db.CreateAttendanceStudentWithChecks(model.TargetId, model.Date, db.AttendanceStatus.Where(a => a.code == model.AttendanceStatusCode).First().Id);
+                    if(res == -1)
+                    {
+                        throw new Exception("Cannot insert duplicate attendance");
+                    }
+                    return RedirectToAction("StudentAttendanceList");
+                }
+                else
+                {
+                    throw new Exception("Model state is invalid");
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //public ActionResult EditStudentAttendance(int studentId, DateTime date)
+        //{
+        //    var model = db.StudentAttendances.Wh
+        //}
+
+        #endregion
     }
 }

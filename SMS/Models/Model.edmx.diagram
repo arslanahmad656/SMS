@@ -4,14 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a6f7790e2d1f4dc999e4e3ee2d8d8720" Name="Diagram1">
+      <Diagram DiagramId="ba78e0feea864d91ac0ac6cab7aa2de6" Name="Diagram1">
         <EntityTypeShape EntityType="Model.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.AspNetRole" Width="1.5" PointX="0.75" PointY="13.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="10.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="12.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.AspNetUser" Width="1.5" PointX="3" PointY="11.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.Attendance" Width="1.5" PointX="7.5" PointY="22.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.AttendanceStatu" Width="1.5" PointX="5.25" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AttendanceStatu" Width="1.5" PointX="5.25" PointY="23" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.Class" Width="1.5" PointX="6" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.Complaint" Width="1.5" PointX="7.5" PointY="15.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.Designation" Width="1.5" PointX="1.5" PointY="19.625" IsExpanded="true" />

@@ -12,6 +12,8 @@ namespace SMS.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class Entities : DbContext
     {
@@ -53,5 +55,39 @@ namespace SMS.Models
         public virtual DbSet<Teacher> Teachers { get; set; }
         public virtual DbSet<TeacherSubjectClass> TeacherSubjectClasses { get; set; }
         public virtual DbSet<Test> Tests { get; set; }
+    
+        public virtual int CreateAttendanceStudent(Nullable<int> studentId, Nullable<System.DateTime> date, Nullable<int> attendanceStatusId)
+        {
+            var studentIdParameter = studentId.HasValue ?
+                new ObjectParameter("StudentId", studentId) :
+                new ObjectParameter("StudentId", typeof(int));
+    
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            var attendanceStatusIdParameter = attendanceStatusId.HasValue ?
+                new ObjectParameter("AttendanceStatusId", attendanceStatusId) :
+                new ObjectParameter("AttendanceStatusId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CreateAttendanceStudent", studentIdParameter, dateParameter, attendanceStatusIdParameter);
+        }
+    
+        public virtual int CreateAttendanceStudentWithChecks(Nullable<int> studentId, Nullable<System.DateTime> date, Nullable<int> attendanceStatusId)
+        {
+            var studentIdParameter = studentId.HasValue ?
+                new ObjectParameter("StudentId", studentId) :
+                new ObjectParameter("StudentId", typeof(int));
+    
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            var attendanceStatusIdParameter = attendanceStatusId.HasValue ?
+                new ObjectParameter("AttendanceStatusId", attendanceStatusId) :
+                new ObjectParameter("AttendanceStatusId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CreateAttendanceStudentWithChecks", studentIdParameter, dateParameter, attendanceStatusIdParameter);
+        }
     }
 }
