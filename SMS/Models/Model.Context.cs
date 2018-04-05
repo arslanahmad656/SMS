@@ -56,6 +56,23 @@ namespace SMS.Models
         public virtual DbSet<TeacherSubjectClass> TeacherSubjectClasses { get; set; }
         public virtual DbSet<Test> Tests { get; set; }
     
+        public virtual int CreateAttendanceEmployee(Nullable<int> employeeId, Nullable<System.DateTime> date, Nullable<int> attendanceStatusId)
+        {
+            var employeeIdParameter = employeeId.HasValue ?
+                new ObjectParameter("EmployeeId", employeeId) :
+                new ObjectParameter("EmployeeId", typeof(int));
+    
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            var attendanceStatusIdParameter = attendanceStatusId.HasValue ?
+                new ObjectParameter("AttendanceStatusId", attendanceStatusId) :
+                new ObjectParameter("AttendanceStatusId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CreateAttendanceEmployee", employeeIdParameter, dateParameter, attendanceStatusIdParameter);
+        }
+    
         public virtual int CreateAttendanceStudent(Nullable<int> studentId, Nullable<System.DateTime> date, Nullable<int> attendanceStatusId)
         {
             var studentIdParameter = studentId.HasValue ?

@@ -810,7 +810,7 @@ namespace SMS.Controllers
         }
         #endregion
 
-        #region Attendance
+        #region AttendanceStudent
         public ActionResult StudentAttendanceList()
         {
             var studentAttendance = db.StudentAttendances.Select(sa => new AttendanceViewModel
@@ -843,6 +843,7 @@ namespace SMS.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult MarkStudentAttendance(AttendanceViewModel model)
         {
             try
@@ -901,6 +902,7 @@ namespace SMS.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult EditStudentAttendance(AttendanceViewModel model)
         {
             try
@@ -943,6 +945,134 @@ namespace SMS.Controllers
             var res = db.SampleProc(id).FirstOrDefault();
             ViewBag.Result = res;
             return View();
+        }
+
+        #endregion
+
+        #region AttendanceStudent
+        public ActionResult EmployeeAttendanceList()
+        {
+            var employeeAttendance = db.EmployeeAttendances.Select(ea => new AttendanceViewModel
+            {
+                AttendanceStatusCode = ea.Attendance.AttendanceStatu.code,
+                Date = ea.Attendance.Date,
+                TargetId = ea.EmployeeId
+            }).ToList();
+            var employeeNameDictionary = new Dictionary<int, string>();
+            employeeAttendance.ForEach(ea =>
+            {
+                try
+                {
+                    employeeNameDictionary.Add(ea.TargetId, db.Employees.Find(ea.TargetId).Name);
+                }
+                catch (ArgumentException)
+                {
+
+                }
+            });
+            ViewBag.EmployeeNameDictionary = employeeNameDictionary;
+            return View(employeeAttendance);
+        }
+
+        public ActionResult MarkEmployeeAttendance()
+        {
+            ViewBag.AttendanceStatusCode = new SelectList(db.AttendanceStatus, "Code", "Title");
+            ViewBag.TargetId = new SelectList(db.Employees, "Id", "Name");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MarkEmployeeAttendance(AttendanceViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    //var attendance = new Attendance
+                    //{
+                    //    AttendanceStatusId = db.AttendanceStatus.Where(a => a.code == model.AttendanceStatusCode).First().Id,
+                    //    Date = model.Date
+                    //};
+                    //db.Attendances.Add(attendance);
+                    //db.SaveChanges();
+
+                    //var studentAttendance = new StudentAttendance
+                    //{
+                    //    StudentId = model.TargetId,
+                    //    AttendanceId = attendance.Id
+                    //};
+                    //db.StudentAttendances.Add(studentAttendance);
+                    //db.SaveChanges();
+                    var res = db.CreateAttendanceEmployee(model.TargetId, model.Date, db.AttendanceStatus.Where(a => a.code == model.AttendanceStatusCode).First().Id);
+                    if (res == -1)
+                    {
+                        throw new Exception("Cannot insert duplicate attendance");
+                    }
+                    return RedirectToAction("EmployeeAttendanceList");
+                }
+                else
+                {
+                    throw new Exception("Model state is invalid");
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public ActionResult EditEmployeeAttendance(int employeeId, DateTime date)
+        {
+            var model = db.EmployeeAttendances.Where(ea => ea.EmployeeId == employeeId && ea.Attendance.Date == date).Select(sa => new AttendanceViewModel
+            {
+                Date = sa.Attendance.Date,
+                TargetId = sa.EmployeeId,
+                AttendanceStatusCode = sa.Attendance.AttendanceStatu.code
+            }).FirstOrDefault();
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.AttendanceStatusCode = new SelectList(db.AttendanceStatus, "Code", "Title", model.AttendanceStatusCode);
+            ViewBag.TargetId = new SelectList(db.Employees, "Id", "Name", model.TargetId);
+            ViewBag.EmployeeName = db.Employees.Find(model.TargetId).Name;
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditEmployeeAttendance(AttendanceViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    //var studentId = model.TargetId;
+                    //var date = model.Date;
+                    //var attendanceStatusId = db.AttendanceStatus.Where(at => at.code == model.AttendanceStatusCode).First().Id;
+                    //var res = db.EditAttendanceStudent(studentId, date, attendanceStatusId);
+                    //if(res != 0)
+                    //{
+                    //    throw new Exception("There was an error in the model state (sp)");
+                    //}
+
+
+                    var toEdit = db.EmployeeAttendances.Where(ea => ea.EmployeeId == model.TargetId && ea.Attendance.Date == model.Date).Select(sa => sa.Attendance).First();
+                    toEdit.AttendanceStatusId = db.AttendanceStatus.Where(at => at.code == model.AttendanceStatusCode).First().Id;
+                    db.Entry(toEdit).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("EmployeeAttendanceList");
+                }
+                else
+                {
+                    throw new Exception("Model state is invalid");
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         #endregion

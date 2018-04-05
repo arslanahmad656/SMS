@@ -655,6 +655,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="CreateAttendanceEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmployeeId" Type="int" Mode="In" />
+          <Parameter Name="Date" Type="datetime" Mode="In" />
+          <Parameter Name="AttendanceStatusId" Type="int" Mode="In" />
+        </Function>
         <Function Name="CreateAttendanceStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StudentId" Type="int" Mode="In" />
           <Parameter Name="Date" Type="datetime" Mode="In" />
@@ -1660,6 +1665,11 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <FunctionImport Name="CreateAttendanceEmployee">
+            <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
+            <Parameter Name="AttendanceStatusId" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="CreateAttendanceStudent">
             <Parameter Name="StudentId" Mode="In" Type="Int32" />
             <Parameter Name="Date" Mode="In" Type="DateTime" />
@@ -1972,6 +1982,7 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="CreateAttendanceEmployee" FunctionName="Model.Store.CreateAttendanceEmployee" />
           <FunctionImportMapping FunctionImportName="CreateAttendanceStudent" FunctionName="Model.Store.CreateAttendanceStudent" />
           <FunctionImportMapping FunctionImportName="CreateAttendanceStudentWithChecks" FunctionName="Model.Store.CreateAttendanceStudentWithChecks" />
           <FunctionImportMapping FunctionImportName="EditAttendanceStudent" FunctionName="Model.Store.EditAttendanceStudent" />
