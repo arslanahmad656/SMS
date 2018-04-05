@@ -515,6 +515,14 @@ namespace SMS.Controllers
            
         }
 
+        public ActionResult PrintPayVoucher(int id)
+        {
+            var model = db.Employees.Find(id);
+            var result = new PartialViewAsPdf("PrintPayVoucher", model);
+            return result;
+
+        }
+
 
         #endregion
 
@@ -670,6 +678,7 @@ namespace SMS.Controllers
             }
         }
         
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteTest(Test model)
@@ -689,6 +698,118 @@ namespace SMS.Controllers
                 throw;
             }
         }
+        public ActionResult MarkStudentMarks()
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var teacher = db.Teachers.ToList();
+                    List<TeacherNameViewModel> teacherNames = new List<TeacherNameViewModel>();
+                    foreach (Teacher i in teacher)
+                    {
+                        TeacherNameViewModel temp = new TeacherNameViewModel();
+                        temp.Id = i.Id;
+                        temp.Name = i.Employee.Name;
+                        teacherNames.Add(temp);
+
+                    };
+                    ViewBag.TeacherId = new SelectList(teacherNames, "Id", "Name");
+                    ViewBag.ClassId = new SelectList(db.Classes, "Id", "Title");
+                    ViewBag.SubjectId = new SelectList(db.Subjects, "Id", "Title");
+                    ViewBag.StudentId = new SelectList(db.Students, "Id", "Name");
+                    
+                    return View();
+                }
+                throw new Exception("Could not enter marks");
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MarkStudentMarks(StudentMarkViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    
+                    TeacherSubjectClass temp = db.TeacherSubjectClasses.Where(st => st.SubjectId == model.SubjectId && st.TeacherId == model.TeacherId && st.ClassId == model.ClassId && st.IsActive == true).SingleOrDefault();
+                    if (temp == null)
+                    {
+                        throw new Exception("Could not find the TeacherSubjectClass");
+                    }
+                    Test test = db.Tests.Where(st => st.TeacherSubjectClassId == temp.Id && st.Date == model.Date).SingleOrDefault();
+                    if (test == null)
+                    {
+                        throw new Exception("Could not find the test");
+                    }
+                    if (model.ObtainedMarks > test.TotalMarks)
+                    {
+                        throw new Exception("Obtained Marks more than total marks");
+                    }
+                    StudentTest studentTest = new StudentTest();
+                    studentTest.TestId = test.Id;
+                    studentTest.StudentId = model.StudentId;
+                    studentTest.ObtainedMarks = model.ObtainedMarks;
+                    
+                    db.StudentTests.Add(studentTest);
+                    db.SaveChanges();
+                    return RedirectToAction("ListStudentMarks",new {id=test.Id});
+
+                }
+                throw new Exception("Could not mark student marks");
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        public ActionResult EditStudentMarks(int studentId,int testId)
+        {
+            try
+            {
+                StudentTest model = db.StudentTests.Where(st => st.StudentId == studentId && st.TestId == testId).SingleOrDefault();
+                return View(model);
+            }
+            catch 
+            {
+
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditStudentMarks(StudentTest model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Entry(model).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("ListStudentMarks", new { id = model.TestId });
+                }
+                throw new Exception("Could not edit student marks");
+            }
+            catch 
+            {
+
+                throw;
+            }
+        }
+        public ActionResult ListStudentMarks(int id)
+        {
+
+            return View(db.StudentTests.Where(st=> st.TestId==id));
+        }
+
+        
+        
         #endregion   
     }
 }

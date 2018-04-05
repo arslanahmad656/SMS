@@ -273,6 +273,7 @@
     <Compile Include="Models\StudentClass.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StudentMarkViewModel.cs" />
     <Compile Include="Models\StudentTest.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -400,10 +401,13 @@
     <Content Include="Views\Admin\EditStudent.cshtml" />
     <Content Include="Views\Admin\DeleteStudent.cshtml" />
     <Content Include="Views\Accountant\DeleteTest.cshtml" />
+    <Content Include="Views\Accountant\ListStudentMarks.cshtml" />
+    <Content Include="Views\Accountant\MarkStudentMarks.cshtml" />
+    <Content Include="Views\Accountant\EditStudentMarks.cshtml" />
+    <Content Include="Views\Accountant\PrintPayVoucher.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
