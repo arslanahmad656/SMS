@@ -665,6 +665,14 @@
           <Parameter Name="Date" Type="datetime" Mode="In" />
           <Parameter Name="AttendanceStatusId" Type="int" Mode="In" />
         </Function>
+        <Function Name="EditAttendanceStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StudentId" Type="int" Mode="In" />
+          <Parameter Name="Date" Type="datetime" Mode="In" />
+          <Parameter Name="AttendanceStatusId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SampleProc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -1662,6 +1670,14 @@
             <Parameter Name="Date" Mode="In" Type="DateTime" />
             <Parameter Name="AttendanceStatusId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="EditAttendanceStudent">
+            <Parameter Name="StudentId" Mode="In" Type="Int32" />
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
+            <Parameter Name="AttendanceStatusId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SampleProc" ReturnType="Collection(Decimal)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -1958,6 +1974,8 @@
           </AssociationSetMapping>
           <FunctionImportMapping FunctionImportName="CreateAttendanceStudent" FunctionName="Model.Store.CreateAttendanceStudent" />
           <FunctionImportMapping FunctionImportName="CreateAttendanceStudentWithChecks" FunctionName="Model.Store.CreateAttendanceStudentWithChecks" />
+          <FunctionImportMapping FunctionImportName="EditAttendanceStudent" FunctionName="Model.Store.EditAttendanceStudent" />
+          <FunctionImportMapping FunctionImportName="SampleProc" FunctionName="Model.Store.SampleProc" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

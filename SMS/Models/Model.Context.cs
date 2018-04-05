@@ -89,5 +89,31 @@ namespace SMS.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CreateAttendanceStudentWithChecks", studentIdParameter, dateParameter, attendanceStatusIdParameter);
         }
+    
+        public virtual int EditAttendanceStudent(Nullable<int> studentId, Nullable<System.DateTime> date, Nullable<int> attendanceStatusId)
+        {
+            var studentIdParameter = studentId.HasValue ?
+                new ObjectParameter("StudentId", studentId) :
+                new ObjectParameter("StudentId", typeof(int));
+    
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            var attendanceStatusIdParameter = attendanceStatusId.HasValue ?
+                new ObjectParameter("AttendanceStatusId", attendanceStatusId) :
+                new ObjectParameter("AttendanceStatusId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EditAttendanceStudent", studentIdParameter, dateParameter, attendanceStatusIdParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> SampleProc(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("SampleProc", idParameter);
+        }
     }
 }

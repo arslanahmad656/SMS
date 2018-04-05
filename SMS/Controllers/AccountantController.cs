@@ -11,6 +11,7 @@ using System.Data.Entity;
 using System.Net;
 using Rotativa;
 using Rotativa.MVC;
+using SMS.App_Start;
 
 namespace SMS.Controllers
 {
@@ -819,14 +820,17 @@ namespace SMS.Controllers
                 TargetId = sa.StudentId
             }).ToList();
             var studentNameDictionary = new Dictionary<int, string>();
-            try
+            studentAttendance.ForEach(sa =>
             {
-                studentAttendance.ForEach(sa => studentNameDictionary.Add(sa.TargetId, db.Students.Find(sa.TargetId).Name));
-            }
-            catch (ArgumentException)
-            {
-                // Nothing to be done if the key with same id has already been added
-            }
+                try
+                {
+                    studentNameDictionary.Add(sa.TargetId, db.Students.Find(sa.TargetId).Name);
+                }
+                catch (ArgumentException)
+                {
+
+                }
+            });
             ViewBag.StudentNameDictionary = studentNameDictionary;
             return View(studentAttendance);
         }
@@ -878,14 +882,70 @@ namespace SMS.Controllers
             }
         }
 
-        //public ActionResult EditStudentAttendance(int studentId, DateTime date)
-        //{
-        //    var model = db.StudentAttendances.Wh
-        //}
+        public ActionResult EditStudentAttendance(int studentId, DateTime date)
+        {
+            var model = db.StudentAttendances.Where(sa => sa.StudentId == studentId && sa.Attendance.Date == date).Select(sa => new AttendanceViewModel
+            {
+                Date = sa.Attendance.Date,
+                TargetId = sa.StudentId,
+                AttendanceStatusCode = sa.Attendance.AttendanceStatu.code
+            }).FirstOrDefault();
+            if(model == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.AttendanceStatusCode = new SelectList(db.AttendanceStatus, "Code", "Title", model.AttendanceStatusCode);
+            ViewBag.TargetId = new SelectList(db.Students, "Id", "Name", model.TargetId);
+            ViewBag.StudentName = db.Students.Find(model.TargetId).Name;
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult EditStudentAttendance(AttendanceViewModel model)
+        {
+            try
+            {
+                if(ModelState.IsValid)
+                {
+                    //var studentId = model.TargetId;
+                    //var date = model.Date;
+                    //var attendanceStatusId = db.AttendanceStatus.Where(at => at.code == model.AttendanceStatusCode).First().Id;
+                    //var res = db.EditAttendanceStudent(studentId, date, attendanceStatusId);
+                    //if(res != 0)
+                    //{
+                    //    throw new Exception("There was an error in the model state (sp)");
+                    //}
+                    
+
+                    var toEdit = db.StudentAttendances.Where(sa => sa.StudentId == model.TargetId && sa.Attendance.Date == model.Date).Select(sa => sa.Attendance).First();
+                    toEdit.AttendanceStatusId = db.AttendanceStatus.Where(at => at.code == model.AttendanceStatusCode).First().Id;
+                    db.Entry(toEdit).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("StudentAttendanceList");
+                }
+                else
+                {
+                    throw new Exception("Model state is invalid");
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         #endregion
 
-        
-        
+        #region Others
+
+        public ActionResult ExecuteSampleProcedure(int id)
+        {
+            var res = db.SampleProc(id).FirstOrDefault();
+            ViewBag.Result = res;
+            return View();
+        }
+
+        #endregion
+
     }
 }
