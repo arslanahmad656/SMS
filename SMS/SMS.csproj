@@ -432,6 +432,7 @@
     <Content Include="Views\Accountant\_ViewStart.cshtml" />
     <Content Include="Views\Accountant\Index.cshtml" />
     <Content Include="Views\Accountant\EmployeeDetails.cshtml" />
+    <Content Include="Views\Accountant\ParentDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
