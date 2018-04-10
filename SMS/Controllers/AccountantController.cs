@@ -487,6 +487,16 @@ namespace SMS.Controllers
             return View(model);
         }
 
+        public ActionResult EmployeeDetails(int id)
+        {
+            var model = db.Employees.Find(id);
+            if(model == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("DeleteEmployee")]
