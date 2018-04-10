@@ -1,6 +1,6 @@
 ﻿@model SMS.Models.Employee
 
-@{
+@*@{
     ViewBag.Title = "EditEmployee";
 }
 
@@ -64,4 +64,41 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
+}*@
+
+
+<div class="container add_form">
+    <h4 class="well text-center"><b>Edit Teacher</b></h4>
+    <div class="col-lg-12 well">
+        <div class="row">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.DesignationId)
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            @Html.LabelFor(model => model.Name)
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            @Html.LabelFor(model => model.CNIC)
+                            @Html.EditorFor(model => model.CNIC, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            @Html.LabelFor(model => model.Address)
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            @Html.LabelFor(model => model.Contact)
+                            @Html.EditorFor(model => model.Contact, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    <button type="submit" value="Create" class="center-block btn btn-lg btn-success">Create</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -495,7 +495,7 @@ namespace SMS.Controllers
             var model = db.Employees.Find(id);
             db.Employees.Remove(model);
             db.SaveChanges();
-            return RedirectToAction("ListEmployee");
+            return RedirectToAction("EmployeeList");
         }
         #endregion
 
