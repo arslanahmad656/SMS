@@ -100,14 +100,87 @@ namespace SMS.Controllers
             return RedirectToAction("ListStudent");
         }
         #endregion
-
+        #region viewFinanceReport
         public ActionResult ViewFinanceReport()
         { 
             
             return View();
 
         }
+
+        #endregion
+
+
+        #region Teacher
+        public ActionResult ListTeacher()
+        {
+            var teacherIds = db.Teachers.Select(t => t.Id).ToList();
+
+            var employees = db.Employees.Where(e => teacherIds.Contains(e.Id)).ToList();
+
+            return View(employees);
+        }
+        public ActionResult EditEmployee(int id)
+        {
+            var teacher = db.Employees.Find(id);
+            if (teacher == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+            ViewBag.DesignationId = new SelectList(db.Designations, "Id", "Title", teacher.DesignationId);
+            return View(teacher);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditEmployee(Employee teacher)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Entry(teacher).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("EmployeeList");
+                }
+                else {
+                    throw new Exception("ModelState is inValid");
+                }
+            }
+            catch {
+                throw;
+            }
+        }
+        public ActionResult DeleteEmployee(int id)
+        {
+            var model = db.Employees.Find(id);
+            if (model == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);              
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("DeleteEmployee")]
+        public ActionResult ConfirmEmployeeDelete(int id)
+        {
+            var model = db.Employees.Find(id);
+            db.Employees.Remove(model);
+            db.SaveChanges();
+            return RedirectToAction("ListTeacher");
+
+        }
+
+        #endregion
+        #region message
+        public ActionResult CreateMessage()
+        {
+            return View();
+        }
+        #endregion
     }
+
 
 
 }

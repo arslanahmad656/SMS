@@ -399,6 +399,10 @@
     <Content Include="Views\Admin\ViewStudent.cshtml" />
     <Content Include="Views\Admin\EditStudent.cshtml" />
     <Content Include="Views\Admin\DeleteStudent.cshtml" />
+    <Content Include="Views\Admin\ListTeacher.cshtml" />
+    <Content Include="Views\Admin\EditEmployee.cshtml" />
+    <Content Include="Views\Admin\DeleteEmployee.cshtml" />
+    <Content Include="Views\Admin\CreateMessage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
