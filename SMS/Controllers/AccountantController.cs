@@ -269,6 +269,16 @@ namespace SMS.Controllers
             return RedirectToAction("ListParent");
         }
 
+        public ActionResult ParentDetails(int id)
+        {
+            var model = db.Parents.Find(id);
+            if(model == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
+        }
+
         #endregion
         
         #region Teacher
@@ -496,6 +506,16 @@ namespace SMS.Controllers
             return View(model);
         }
 
+        public ActionResult EmployeeDetails(int id)
+        {
+            var model = db.Employees.Find(id);
+            if(model == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("DeleteEmployee")]
@@ -504,7 +524,7 @@ namespace SMS.Controllers
             var model = db.Employees.Find(id);
             db.Employees.Remove(model);
             db.SaveChanges();
-            return RedirectToAction("ListEmployee");
+            return RedirectToAction("EmployeeList");
         }
         #endregion
 

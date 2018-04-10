@@ -431,6 +431,8 @@
     <Content Include="Views\Shared\_Accountant.cshtml" />
     <Content Include="Views\Accountant\_ViewStart.cshtml" />
     <Content Include="Views\Accountant\Index.cshtml" />
+    <Content Include="Views\Accountant\EmployeeDetails.cshtml" />
+    <Content Include="Views\Accountant\ParentDetails.cshtml" />
     <Content Include="Views\Accountant\DeleteFinanceReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
