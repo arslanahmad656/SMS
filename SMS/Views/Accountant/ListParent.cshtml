@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<SMS.Models.Parent>
 
-@{
+@*@{
     ViewBag.Title = "ListParent";
 }
 
@@ -48,4 +48,62 @@
     </tr>
 }
 
-</table>
+</table>*@
+
+<div class="view_students_table">
+    <div class="table-responsive students_table">
+        <table id="myTable" class="display table table-striped table-hover table-bordered table_border_radius" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Sr.
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CNIC)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Contact)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AspNetUser.UserName)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var count = 0;
+                }
+                @foreach (var item in Model)
+                {
+                    <tr data-for-id="@item.Id">
+                        <td>
+                            @(++count)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CNIC)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Contact)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AspNetUser.UserName)
+                        </td>
+                        <td>
+                            <a href=""><i class="material-icons">&#xe923;</i></a>
+                            <a href="@Url.Action("EditParent", new { id = @item.Id })"><i class="material-icons">&#xe3c9;</i></a>
+                            <a href="@Url.Action("DeleteParent", new { id = @item.Id })"><i class="material-icons">&#xe872;</i></a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -269,6 +269,16 @@ namespace SMS.Controllers
             return RedirectToAction("ListParent");
         }
 
+        public ActionResult ParentDetails(int id)
+        {
+            var model = db.Parents.Find(id);
+            if(model == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
+        }
+
         #endregion
         
         #region Teacher
