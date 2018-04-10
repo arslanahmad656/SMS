@@ -173,6 +173,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\ApplicationWideData.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="Models\AttendanceStatu.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AttendanceViewModel.cs" />
     <Compile Include="Models\Class.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -231,9 +233,6 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\TeacherNameViewModel.cs" />
-    <Compile Include="Models\TestViewModel.cs" />
-    <Compile Include="Views\ManageViewModels.cs" />
     <Compile Include="Models\Message.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -264,7 +263,6 @@
     <Compile Include="Models\Parent.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ParentUserVIewModel.cs" />
     <Compile Include="Models\PaySlip.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -277,6 +275,7 @@
     <Compile Include="Models\StudentClass.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StudentMarkViewModel.cs" />
     <Compile Include="Models\StudentTest.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -286,13 +285,17 @@
     <Compile Include="Models\Teacher.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TeacherEmployeeUserViewModel.cs" />
+    <Compile Include="Models\TeacherNameViewModel.cs" />
     <Compile Include="Models\TeacherSubjectClass.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Test.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TestViewModel.cs" />
+    <Compile Include="Views\ManageViewModels.cs" />
+    <Compile Include="Models\ParentUserVIewModel.cs" />
+    <Compile Include="Models\TeacherEmployeeUserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -316,6 +319,7 @@
     <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="App_Browsers\qt.browser" />
     <EntityDeploy Include="Models\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
@@ -323,7 +327,6 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
-    <Content Include="App_Browsers\qt.browser" />
     <None Include="Properties\PublishProfiles\desktop publish.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -399,6 +402,18 @@
     <Content Include="Views\Admin\ViewStudent.cshtml" />
     <Content Include="Views\Admin\EditStudent.cshtml" />
     <Content Include="Views\Admin\DeleteStudent.cshtml" />
+    <Content Include="Views\Accountant\DeleteTest.cshtml" />
+    <Content Include="Views\Accountant\ListStudentMarks.cshtml" />
+    <Content Include="Views\Accountant\MarkStudentMarks.cshtml" />
+    <Content Include="Views\Accountant\EditStudentMarks.cshtml" />
+    <Content Include="Views\Accountant\PrintPayVoucher.cshtml" />
+    <Content Include="Views\Accountant\MarkStudentAttendance.cshtml" />
+    <Content Include="Views\Accountant\StudentAttendanceList.cshtml" />
+    <Content Include="Views\Accountant\ExecuteSampleProcedure.cshtml" />
+    <Content Include="Views\Accountant\EditStudentAttendance.cshtml" />
+    <Content Include="Views\Accountant\EmployeeAttendanceList.cshtml" />
+    <Content Include="Views\Accountant\MarkEmployeeAttendance.cshtml" />
+    <Content Include="Views\Accountant\EditEmployeeAttendance.cshtml" />
     <Content Include="Views\Admin\ListTeacher.cshtml" />
     <Content Include="Views\Admin\EditEmployee.cshtml" />
     <Content Include="Views\Admin\DeleteEmployee.cshtml" />

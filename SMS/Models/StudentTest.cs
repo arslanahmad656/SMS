@@ -16,9 +16,10 @@ namespace SMS.Models
     {
         public int Id { get; set; }
         public int TestId { get; set; }
-        public string StudentId { get; set; }
+        public int StudentId { get; set; }
         public decimal ObtainedMarks { get; set; }
     
+        public virtual Student Student { get; set; }
         public virtual Test Test { get; set; }
     }
 }

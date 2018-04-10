@@ -7,6 +7,7 @@ using System.Linq;
 using SMS.Models;
 using System;
 using System.Collections.Generic;
+using SMS.App_Start;
 
 [assembly: OwinStartupAttribute(typeof(SMS.Startup))]
 namespace SMS
@@ -237,15 +238,18 @@ namespace SMS
                 {
                     new AttendanceStatu
                     {
-                        Title = "P"
+                        Title = "P",
+                        code = ApplicationWideData.AttendanceStatusPresent
                     },
                     new AttendanceStatu
                     {
-                        Title = "A"
+                        Title = "A",
+                        code = ApplicationWideData.AttendanceStatusAbsent
                     },
                     new AttendanceStatu
                     {
-                        Title = "L"
+                        Title = "L",
+                        code = ApplicationWideData.AttendanceStatusLeave
                     }
                 };
                 foreach (var attendanceStatus in attendanceStatusList)

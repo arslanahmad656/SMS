@@ -80,6 +80,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="code" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Class">
           <Key>
@@ -229,7 +230,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TestId" Type="int" Nullable="false" />
-          <Property Name="StudentId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="StudentId" Type="int" Nullable="false" />
           <Property Name="ObtainedMarks" Type="numeric" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Subject">
@@ -254,6 +255,7 @@
           <Property Name="TeacherId" Type="int" Nullable="false" />
           <Property Name="SubjectId" Type="int" Nullable="false" />
           <Property Name="ClassId" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="Test">
           <Key>
@@ -466,7 +468,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Parent_User">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Parent" Type="Self.Parent" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
@@ -550,7 +554,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_StudentClass_Student">
-          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="StudentClass" Type="Self.StudentClass" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Student">
@@ -561,8 +567,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_StudentTest_Test">
-          <End Role="Test" Type="Self.Test" Multiplicity="1" />
+        <Association Name="FK_STUDENTTEST_STUDENT">
+          <End Role="Student" Type="Self.Student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="StudentTest" Type="Self.StudentTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StudentTest">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STUDENTTEST_TEST">
+          <End Role="Test" Type="Self.Test" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="StudentTest" Type="Self.StudentTest" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Test">
@@ -573,7 +595,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Teacher_Employee">
+        <Association Name="fk_teacher_employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="Teacher" Type="Self.Teacher" Multiplicity="*" />
           <ReferentialConstraint>
@@ -633,6 +655,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="CreateAttendanceEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmployeeId" Type="int" Mode="In" />
+          <Parameter Name="Date" Type="datetime" Mode="In" />
+          <Parameter Name="AttendanceStatusId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="CreateAttendanceStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StudentId" Type="int" Mode="In" />
+          <Parameter Name="Date" Type="datetime" Mode="In" />
+          <Parameter Name="AttendanceStatusId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="CreateAttendanceStudentWithChecks" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StudentId" Type="int" Mode="In" />
+          <Parameter Name="Date" Type="datetime" Mode="In" />
+          <Parameter Name="AttendanceStatusId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="EditAttendanceStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StudentId" Type="int" Mode="In" />
+          <Parameter Name="Date" Type="datetime" Mode="In" />
+          <Parameter Name="AttendanceStatusId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SampleProc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -759,11 +804,15 @@
             <End Role="Student" EntitySet="Student" />
             <End Role="StudentClass" EntitySet="StudentClass" />
           </AssociationSet>
-          <AssociationSet Name="FK_StudentTest_Test" Association="Self.FK_StudentTest_Test">
+          <AssociationSet Name="FK_STUDENTTEST_STUDENT" Association="Self.FK_STUDENTTEST_STUDENT">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="StudentTest" EntitySet="StudentTest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STUDENTTEST_TEST" Association="Self.FK_STUDENTTEST_TEST">
             <End Role="Test" EntitySet="Test" />
             <End Role="StudentTest" EntitySet="StudentTest" />
           </AssociationSet>
-          <AssociationSet Name="FK_Teacher_Employee" Association="Self.FK_Teacher_Employee">
+          <AssociationSet Name="fk_teacher_employee" Association="Self.fk_teacher_employee">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Teacher" EntitySet="Teacher" />
           </AssociationSet>
@@ -867,6 +916,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="code" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Attendances" Relationship="Self.FK_Attendance_AttendanceStatus" FromRole="AttendanceStatus" ToRole="Attendance" />
         </EntityType>
         <EntityType Name="Class">
@@ -912,7 +962,7 @@
           <NavigationProperty Name="EmployeeAttendances" Relationship="Self.FK_EmployeeAttendance_Employee" FromRole="Employee" ToRole="EmployeeAttendance" />
           <NavigationProperty Name="MessageEmployees" Relationship="Self.FK_MessageEmployee_Employee" FromRole="Employee" ToRole="MessageEmployee" />
           <NavigationProperty Name="PaySlips" Relationship="Self.FK_PaySlip_Employee" FromRole="Employee" ToRole="PaySlip" />
-          <NavigationProperty Name="Teachers" Relationship="Self.FK_Teacher_Employee" FromRole="Employee" ToRole="Teacher" />
+          <NavigationProperty Name="Teachers" Relationship="Self.fk_teacher_employee" FromRole="Employee" ToRole="Teacher" />
         </EntityType>
         <EntityType Name="EmployeeAttendance">
           <Key>
@@ -1026,6 +1076,7 @@
           <NavigationProperty Name="Parent" Relationship="Self.FK_Student_Parent" FromRole="Student" ToRole="Parent" />
           <NavigationProperty Name="StudentAttendances" Relationship="Self.FK_StudentAttendance_Student" FromRole="Student" ToRole="StudentAttendance" />
           <NavigationProperty Name="StudentClasses" Relationship="Self.FK_StudentClass_Student" FromRole="Student" ToRole="StudentClass" />
+          <NavigationProperty Name="StudentTests" Relationship="Self.FK_STUDENTTEST_STUDENT" FromRole="Student" ToRole="StudentTest" />
         </EntityType>
         <EntityType Name="StudentAttendance">
           <Key>
@@ -1053,9 +1104,10 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TestId" Type="Int32" Nullable="false" />
-          <Property Name="StudentId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StudentId" Type="Int32" Nullable="false" />
           <Property Name="ObtainedMarks" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <NavigationProperty Name="Test" Relationship="Self.FK_StudentTest_Test" FromRole="StudentTest" ToRole="Test" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_STUDENTTEST_STUDENT" FromRole="StudentTest" ToRole="Student" />
+          <NavigationProperty Name="Test" Relationship="Self.FK_STUDENTTEST_TEST" FromRole="StudentTest" ToRole="Test" />
         </EntityType>
         <EntityType Name="Subject">
           <Key>
@@ -1071,7 +1123,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EmployeeId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_Teacher_Employee" FromRole="Teacher" ToRole="Employee" />
+          <NavigationProperty Name="Employee" Relationship="Self.fk_teacher_employee" FromRole="Teacher" ToRole="Employee" />
           <NavigationProperty Name="TeacherSubjectClasses" Relationship="Self.FK_TeacherSubjectClass_TeacherId" FromRole="Teacher" ToRole="TeacherSubjectClass" />
         </EntityType>
         <EntityType Name="TeacherSubjectClass">
@@ -1082,6 +1134,7 @@
           <Property Name="TeacherId" Type="Int32" Nullable="false" />
           <Property Name="SubjectId" Type="Int32" Nullable="false" />
           <Property Name="ClassId" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="Class" Relationship="Self.FK_TeacherSubjectClass_ClassId" FromRole="TeacherSubjectClass" ToRole="Class" />
           <NavigationProperty Name="Subject" Relationship="Self.FK_TeacherSubjectClass_SubjectId" FromRole="TeacherSubjectClass" ToRole="Subject" />
           <NavigationProperty Name="Teacher" Relationship="Self.FK_TeacherSubjectClass_TeacherId" FromRole="TeacherSubjectClass" ToRole="Teacher" />
@@ -1096,7 +1149,7 @@
           <Property Name="Type" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="TotalMarks" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <NavigationProperty Name="StudentTests" Relationship="Self.FK_StudentTest_Test" FromRole="Test" ToRole="StudentTest" />
+          <NavigationProperty Name="StudentTests" Relationship="Self.FK_STUDENTTEST_TEST" FromRole="Test" ToRole="StudentTest" />
           <NavigationProperty Name="TeacherSubjectClass" Relationship="Self.FK_Test_TeacherSubjectClass" FromRole="Test" ToRole="TeacherSubjectClass" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -1128,7 +1181,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Parent_User">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Parent" Type="Self.Parent" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
@@ -1283,7 +1338,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Teacher_Employee">
+        <Association Name="fk_teacher_employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="Teacher" Type="Self.Teacher" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1380,7 +1435,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_StudentClass_Student">
-          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="StudentClass" Type="Self.StudentClass" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Student">
@@ -1391,8 +1448,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_StudentTest_Test">
-          <End Role="Test" Type="Self.Test" Multiplicity="1" />
+        <Association Name="FK_STUDENTTEST_STUDENT">
+          <End Role="Student" Type="Self.Student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="StudentTest" Type="Self.StudentTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StudentTest">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STUDENTTEST_TEST">
+          <End Role="Test" Type="Self.Test" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="StudentTest" Type="Self.StudentTest" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Test">
@@ -1532,7 +1605,7 @@
             <End Role="Employee" EntitySet="Employees" />
             <End Role="PaySlip" EntitySet="PaySlips" />
           </AssociationSet>
-          <AssociationSet Name="FK_Teacher_Employee" Association="Self.FK_Teacher_Employee">
+          <AssociationSet Name="fk_teacher_employee" Association="Self.fk_teacher_employee">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="Teacher" EntitySet="Teachers" />
           </AssociationSet>
@@ -1568,7 +1641,11 @@
             <End Role="Student" EntitySet="Students" />
             <End Role="StudentClass" EntitySet="StudentClasses" />
           </AssociationSet>
-          <AssociationSet Name="FK_StudentTest_Test" Association="Self.FK_StudentTest_Test">
+          <AssociationSet Name="FK_STUDENTTEST_STUDENT" Association="Self.FK_STUDENTTEST_STUDENT">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="StudentTest" EntitySet="StudentTests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STUDENTTEST_TEST" Association="Self.FK_STUDENTTEST_TEST">
             <End Role="Test" EntitySet="Tests" />
             <End Role="StudentTest" EntitySet="StudentTests" />
           </AssociationSet>
@@ -1588,6 +1665,29 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <FunctionImport Name="CreateAttendanceEmployee">
+            <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
+            <Parameter Name="AttendanceStatusId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CreateAttendanceStudent">
+            <Parameter Name="StudentId" Mode="In" Type="Int32" />
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
+            <Parameter Name="AttendanceStatusId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CreateAttendanceStudentWithChecks">
+            <Parameter Name="StudentId" Mode="In" Type="Int32" />
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
+            <Parameter Name="AttendanceStatusId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="EditAttendanceStudent">
+            <Parameter Name="StudentId" Mode="In" Type="Int32" />
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
+            <Parameter Name="AttendanceStatusId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SampleProc" ReturnType="Collection(Decimal)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -1664,6 +1764,7 @@
               <MappingFragment StoreEntitySet="AttendanceStatus">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="code" ColumnName="code" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1858,6 +1959,7 @@
                 <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
                 <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
                 <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1880,6 +1982,11 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="CreateAttendanceEmployee" FunctionName="Model.Store.CreateAttendanceEmployee" />
+          <FunctionImportMapping FunctionImportName="CreateAttendanceStudent" FunctionName="Model.Store.CreateAttendanceStudent" />
+          <FunctionImportMapping FunctionImportName="CreateAttendanceStudentWithChecks" FunctionName="Model.Store.CreateAttendanceStudentWithChecks" />
+          <FunctionImportMapping FunctionImportName="EditAttendanceStudent" FunctionName="Model.Store.EditAttendanceStudent" />
+          <FunctionImportMapping FunctionImportName="SampleProc" FunctionName="Model.Store.SampleProc" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

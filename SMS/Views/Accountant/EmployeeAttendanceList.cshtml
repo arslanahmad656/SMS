@@ -1,0 +1,43 @@
+﻿@using SMS.App_Start
+
+@model IEnumerable<SMS.Models.AttendanceViewModel>
+
+@{
+    ViewBag.Title = "StudentAttendanceList";
+    var nameDictionary = (Dictionary<int, string>)ViewBag.EmployeeNameDictionary;
+}
+
+<h2>StudentAttendanceList</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AttendanceStatusCode)
+        </th>
+        <th>
+            Student Name
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @ApplicationWideData.GetAttendaceStatusString(item.AttendanceStatusCode)
+        </td>
+        <td>
+            @{ 
+                string name;
+                nameDictionary.TryGetValue(item.TargetId, out name);
+            }
+            @name
+        </td>
+    </tr>
+}
+
+</table>

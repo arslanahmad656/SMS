@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +11,7 @@ using System.Data.Entity;
 using System.Net;
 using Rotativa;
 using Rotativa.MVC;
+using SMS.App_Start;
 
 namespace SMS.Controllers
 {
@@ -332,6 +332,7 @@ namespace SMS.Controllers
         }
         
         #endregion
+
         #region FinanceReport
         public ActionResult CreateFinanceReport()
         {
@@ -515,6 +516,14 @@ namespace SMS.Controllers
            
         }
 
+        public ActionResult PrintPayVoucher(int id)
+        {
+            var model = db.Employees.Find(id);
+            var result = new PartialViewAsPdf("PrintPayVoucher", model);
+            return result;
+
+        }
+
 
         #endregion
 
@@ -552,7 +561,7 @@ namespace SMS.Controllers
                     
 
                     Test test = new Test();
-                    TeacherSubjectClass temp = db.TeacherSubjectClasses.Where(st => st.SubjectId == model.SubjectId && st.TeacherId == model.TeacherId && st.ClassId == model.ClassId).SingleOrDefault();
+                    TeacherSubjectClass temp = db.TeacherSubjectClasses.Where(st => st.SubjectId == model.SubjectId && st.TeacherId == model.TeacherId && st.ClassId == model.ClassId && st.IsActive==true).SingleOrDefault();
                     test.TeacherSubjectClassId = temp.Id;
                     test.Date = model.Date;
                     //test.Date = DateTime.Now;
@@ -576,12 +585,126 @@ namespace SMS.Controllers
         {
             return View(db.Tests);
         }
-        public ActionResult EditTest(int id)
+        //public ActionResult EditTest(int id)
+        //{
+        //    try
+        //    {
+        //        if (ModelState.IsValid) {
+        //            Test test = db.Tests.Find(id);
+        //            var teacher = db.Teachers.ToList();
+        //            List<TeacherNameViewModel> teacherNames = new List<TeacherNameViewModel>();
+        //            foreach (Teacher i in teacher)
+        //            {
+        //                TeacherNameViewModel temp = new TeacherNameViewModel();
+        //                temp.Id = i.Id;
+        //                temp.Name = i.Employee.Name;
+        //                teacherNames.Add(temp);
+
+        //            };
+        //            ViewBag.TeacherId = new SelectList(teacherNames, "Id", "Name");
+        //            ViewBag.ClassId = new SelectList(db.Classes, "Id", "Title");
+        //            ViewBag.SubjectId = new SelectList(db.Subjects, "Id", "TItle");
+
+        //            return View(test);
+        //        }
+        //        throw new Exception("Model State Invalid in editting a test");
+        //    }
+        //    catch
+        //    {
+        //        throw new Exception("Could not edit test");
+        //    }
+
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult EditTest (Test model)
+        //{
+        //    try
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+        //            Test test = db.Tests.Find(model.Id);
+        //            if (test == null)
+        //            {
+        //                throw new Exception("Could not find the test");
+        //            }
+        //            test.Date = model.Date;
+        //            test.TotalMarks = model.TotalMarks;
+        //            test.Type=model.Type;
+        //            var SubjectId = Int32.Parse(Request.Form["SubjectId"]);
+        //            var TeacherId = Int32.Parse(Request.Form["TeacherId"]);
+        //            var ClassId = Int32.Parse(Request.Form["ClassId"]);
+
+        //TeacherSubjectClass temp = db.TeacherSubjectClasses.Where(st => st.SubjectId == SubjectId && st.TeacherId == TeacherId && st.ClassId == ClassId && st.IsActive == true).SingleOrDefault();
+        //            if (temp == null)
+        //            {
+        //                throw new Exception("Could not fint TeacheSubjectClass");
+        //            }
+        //            test.TeacherSubjectClassId = temp.Id;
+
+        //            db.Entry(test).State = EntityState.Modified;
+        //            db.SaveChanges();
+        //            return RedirectToAction("ListTest");
+        //        }
+        //        throw new Exception("ModelState Invalid in Edit Test");
+
+        //    }
+        //    catch
+        //    {
+        //        throw;
+        //    }
+        //}
+        public ActionResult DeleteTest(int id)
         {
             try
             {
-                if (ModelState.IsValid) {
-                    Test test = db.Tests.Find(id);
+                if (ModelState.IsValid)
+                {
+                    var model = db.Tests.Find(id);
+                    if (model == null)
+                    {
+                        throw new Exception("Could not find the test");
+                    }
+                    ViewBag.ClassName = model.TeacherSubjectClass.Class.Title;
+                    ViewBag.TeacherName = model.TeacherSubjectClass.Teacher.Employee.Name;
+                    ViewBag.SubjectName = model.TeacherSubjectClass.Subject.Title;
+                    return View(model);
+                }
+                throw new Exception("Could not delete test");
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteTest(Test model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Entry(model).State = EntityState.Deleted;
+                    db.SaveChanges();
+                    return RedirectToAction("ListTest");
+                }
+                throw new Exception("Could not delete test");
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        public ActionResult MarkStudentMarks()
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
                     var teacher = db.Teachers.ToList();
                     List<TeacherNameViewModel> teacherNames = new List<TeacherNameViewModel>();
                     foreach (Teacher i in teacher)
@@ -594,58 +717,365 @@ namespace SMS.Controllers
                     };
                     ViewBag.TeacherId = new SelectList(teacherNames, "Id", "Name");
                     ViewBag.ClassId = new SelectList(db.Classes, "Id", "Title");
-                    ViewBag.SubjectId = new SelectList(db.Subjects, "Id", "TItle");
-
-                    return View(test);
+                    ViewBag.SubjectId = new SelectList(db.Subjects, "Id", "Title");
+                    ViewBag.StudentId = new SelectList(db.Students, "Id", "Name");
+                    
+                    return View();
                 }
-                throw new Exception("Model State Invalid in editting a test");
-            }
-            catch
-            {
-                throw new Exception("Could not edit test");
-            }
-
-        }
-        
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditTest (Test model)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    Test test = db.Tests.Find(model.Id);
-                    if (test == null)
-                    {
-                        throw new Exception("Could not find the test");
-                    }
-                    test.Date = model.Date;
-                    test.TotalMarks = model.TotalMarks;
-                    test.Type=model.Type;
-                    var SubjectId = Int32.Parse(Request.Form["SubjectId"]);
-                    var TeacherId = Int32.Parse(Request.Form["TeacherId"]);
-                    var ClassId = Int32.Parse(Request.Form["ClassId"]);
-
-                    TeacherSubjectClass temp = db.TeacherSubjectClasses.Where(st => st.SubjectId == SubjectId && st.TeacherId == TeacherId && st.ClassId == ClassId).SingleOrDefault();
-                    if (temp == null)
-                    {
-                        throw new Exception("Could not fint TeacheSubjectClass");
-                    }
-                    test.TeacherSubjectClassId = temp.Id;
-                   
-                    db.Entry(test).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("ListTest");
-                }
-                throw new Exception("ModelState Invalid in Edit Test");
-
+                throw new Exception("Could not enter marks");
             }
             catch
             {
                 throw;
             }
         }
-        #endregion   
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MarkStudentMarks(StudentMarkViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    
+                    TeacherSubjectClass temp = db.TeacherSubjectClasses.Where(st => st.SubjectId == model.SubjectId && st.TeacherId == model.TeacherId && st.ClassId == model.ClassId && st.IsActive == true).SingleOrDefault();
+                    if (temp == null)
+                    {
+                        throw new Exception("Could not find the TeacherSubjectClass");
+                    }
+                    Test test = db.Tests.Where(st => st.TeacherSubjectClassId == temp.Id && st.Date == model.Date).SingleOrDefault();
+                    if (test == null)
+                    {
+                        throw new Exception("Could not find the test");
+                    }
+                    if (model.ObtainedMarks > test.TotalMarks)
+                    {
+                        throw new Exception("Obtained Marks more than total marks");
+                    }
+                    StudentTest studentTest = new StudentTest();
+                    studentTest.TestId = test.Id;
+                    studentTest.StudentId = model.StudentId;
+                    studentTest.ObtainedMarks = model.ObtainedMarks;
+                    
+                    db.StudentTests.Add(studentTest);
+                    db.SaveChanges();
+                    return RedirectToAction("ListStudentMarks",new {id=test.Id});
+
+                }
+                throw new Exception("Could not mark student marks");
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        public ActionResult EditStudentMarks(int studentId,int testId)
+        {
+            try
+            {
+                StudentTest model = db.StudentTests.Where(st => st.StudentId == studentId && st.TestId == testId).SingleOrDefault();
+                return View(model);
+            }
+            catch 
+            {
+
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditStudentMarks(StudentTest model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Entry(model).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("ListStudentMarks", new { id = model.TestId });
+                }
+                throw new Exception("Could not edit student marks");
+            }
+            catch 
+            {
+
+                throw;
+            }
+        }
+        public ActionResult ListStudentMarks(int id)
+        {
+
+            return View(db.StudentTests.Where(st=> st.TestId==id));
+        }
+        #endregion
+
+        #region AttendanceStudent
+        public ActionResult StudentAttendanceList()
+        {
+            var studentAttendance = db.StudentAttendances.Select(sa => new AttendanceViewModel
+            {
+                AttendanceStatusCode = sa.Attendance.AttendanceStatu.code,
+                Date = sa.Attendance.Date,
+                TargetId = sa.StudentId
+            }).ToList();
+            var studentNameDictionary = new Dictionary<int, string>();
+            studentAttendance.ForEach(sa =>
+            {
+                try
+                {
+                    studentNameDictionary.Add(sa.TargetId, db.Students.Find(sa.TargetId).Name);
+                }
+                catch (ArgumentException)
+                {
+
+                }
+            });
+            ViewBag.StudentNameDictionary = studentNameDictionary;
+            return View(studentAttendance);
+        }
+
+        public ActionResult MarkStudentAttendance()
+        {
+            ViewBag.AttendanceStatusCode = new SelectList(db.AttendanceStatus, "Code", "Title");
+            ViewBag.TargetId = new SelectList(db.Students, "Id", "Name");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MarkStudentAttendance(AttendanceViewModel model)
+        {
+            try
+            {
+                if(ModelState.IsValid)
+                {
+                    //var attendance = new Attendance
+                    //{
+                    //    AttendanceStatusId = db.AttendanceStatus.Where(a => a.code == model.AttendanceStatusCode).First().Id,
+                    //    Date = model.Date
+                    //};
+                    //db.Attendances.Add(attendance);
+                    //db.SaveChanges();
+
+                    //var studentAttendance = new StudentAttendance
+                    //{
+                    //    StudentId = model.TargetId,
+                    //    AttendanceId = attendance.Id
+                    //};
+                    //db.StudentAttendances.Add(studentAttendance);
+                    //db.SaveChanges();
+                    var res = db.CreateAttendanceStudentWithChecks(model.TargetId, model.Date, db.AttendanceStatus.Where(a => a.code == model.AttendanceStatusCode).First().Id);
+                    if(res == -1)
+                    {
+                        throw new Exception("Cannot insert duplicate attendance");
+                    }
+                    return RedirectToAction("StudentAttendanceList");
+                }
+                else
+                {
+                    throw new Exception("Model state is invalid");
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public ActionResult EditStudentAttendance(int studentId, DateTime date)
+        {
+            var model = db.StudentAttendances.Where(sa => sa.StudentId == studentId && sa.Attendance.Date == date).Select(sa => new AttendanceViewModel
+            {
+                Date = sa.Attendance.Date,
+                TargetId = sa.StudentId,
+                AttendanceStatusCode = sa.Attendance.AttendanceStatu.code
+            }).FirstOrDefault();
+            if(model == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.AttendanceStatusCode = new SelectList(db.AttendanceStatus, "Code", "Title", model.AttendanceStatusCode);
+            ViewBag.TargetId = new SelectList(db.Students, "Id", "Name", model.TargetId);
+            ViewBag.StudentName = db.Students.Find(model.TargetId).Name;
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditStudentAttendance(AttendanceViewModel model)
+        {
+            try
+            {
+                if(ModelState.IsValid)
+                {
+                    //var studentId = model.TargetId;
+                    //var date = model.Date;
+                    //var attendanceStatusId = db.AttendanceStatus.Where(at => at.code == model.AttendanceStatusCode).First().Id;
+                    //var res = db.EditAttendanceStudent(studentId, date, attendanceStatusId);
+                    //if(res != 0)
+                    //{
+                    //    throw new Exception("There was an error in the model state (sp)");
+                    //}
+                    
+
+                    var toEdit = db.StudentAttendances.Where(sa => sa.StudentId == model.TargetId && sa.Attendance.Date == model.Date).Select(sa => sa.Attendance).First();
+                    toEdit.AttendanceStatusId = db.AttendanceStatus.Where(at => at.code == model.AttendanceStatusCode).First().Id;
+                    db.Entry(toEdit).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("StudentAttendanceList");
+                }
+                else
+                {
+                    throw new Exception("Model state is invalid");
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        #endregion
+
+        #region Others
+
+        public ActionResult ExecuteSampleProcedure(int id)
+        {
+            var res = db.SampleProc(id).FirstOrDefault();
+            ViewBag.Result = res;
+            return View();
+        }
+
+        #endregion
+
+        #region AttendanceStudent
+        public ActionResult EmployeeAttendanceList()
+        {
+            var employeeAttendance = db.EmployeeAttendances.Select(ea => new AttendanceViewModel
+            {
+                AttendanceStatusCode = ea.Attendance.AttendanceStatu.code,
+                Date = ea.Attendance.Date,
+                TargetId = ea.EmployeeId
+            }).ToList();
+            var employeeNameDictionary = new Dictionary<int, string>();
+            employeeAttendance.ForEach(ea =>
+            {
+                try
+                {
+                    employeeNameDictionary.Add(ea.TargetId, db.Employees.Find(ea.TargetId).Name);
+                }
+                catch (ArgumentException)
+                {
+
+                }
+            });
+            ViewBag.EmployeeNameDictionary = employeeNameDictionary;
+            return View(employeeAttendance);
+        }
+
+        public ActionResult MarkEmployeeAttendance()
+        {
+            ViewBag.AttendanceStatusCode = new SelectList(db.AttendanceStatus, "Code", "Title");
+            ViewBag.TargetId = new SelectList(db.Employees, "Id", "Name");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MarkEmployeeAttendance(AttendanceViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    //var attendance = new Attendance
+                    //{
+                    //    AttendanceStatusId = db.AttendanceStatus.Where(a => a.code == model.AttendanceStatusCode).First().Id,
+                    //    Date = model.Date
+                    //};
+                    //db.Attendances.Add(attendance);
+                    //db.SaveChanges();
+
+                    //var studentAttendance = new StudentAttendance
+                    //{
+                    //    StudentId = model.TargetId,
+                    //    AttendanceId = attendance.Id
+                    //};
+                    //db.StudentAttendances.Add(studentAttendance);
+                    //db.SaveChanges();
+                    var res = db.CreateAttendanceEmployee(model.TargetId, model.Date, db.AttendanceStatus.Where(a => a.code == model.AttendanceStatusCode).First().Id);
+                    if (res == -1)
+                    {
+                        throw new Exception("Cannot insert duplicate attendance");
+                    }
+                    return RedirectToAction("EmployeeAttendanceList");
+                }
+                else
+                {
+                    throw new Exception("Model state is invalid");
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public ActionResult EditEmployeeAttendance(int employeeId, DateTime date)
+        {
+            var model = db.EmployeeAttendances.Where(ea => ea.EmployeeId == employeeId && ea.Attendance.Date == date).Select(sa => new AttendanceViewModel
+            {
+                Date = sa.Attendance.Date,
+                TargetId = sa.EmployeeId,
+                AttendanceStatusCode = sa.Attendance.AttendanceStatu.code
+            }).FirstOrDefault();
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.AttendanceStatusCode = new SelectList(db.AttendanceStatus, "Code", "Title", model.AttendanceStatusCode);
+            ViewBag.TargetId = new SelectList(db.Employees, "Id", "Name", model.TargetId);
+            ViewBag.EmployeeName = db.Employees.Find(model.TargetId).Name;
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditEmployeeAttendance(AttendanceViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    //var studentId = model.TargetId;
+                    //var date = model.Date;
+                    //var attendanceStatusId = db.AttendanceStatus.Where(at => at.code == model.AttendanceStatusCode).First().Id;
+                    //var res = db.EditAttendanceStudent(studentId, date, attendanceStatusId);
+                    //if(res != 0)
+                    //{
+                    //    throw new Exception("There was an error in the model state (sp)");
+                    //}
+
+
+                    var toEdit = db.EmployeeAttendances.Where(ea => ea.EmployeeId == model.TargetId && ea.Attendance.Date == model.Date).Select(sa => sa.Attendance).First();
+                    toEdit.AttendanceStatusId = db.AttendanceStatus.Where(at => at.code == model.AttendanceStatusCode).First().Id;
+                    db.Entry(toEdit).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("EmployeeAttendanceList");
+                }
+                else
+                {
+                    throw new Exception("Model state is invalid");
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        #endregion
+
     }
 }
