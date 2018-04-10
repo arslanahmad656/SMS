@@ -1,0 +1,475 @@
+/*Animate Keyframes*/
+/** fadeInDown **/
+@keyframes fadeInDown {
+    from {
+        opacity:0;
+        -webkit-transform: translatey(-150px);
+        -moz-transform: translatey(-150px);
+        -o-transform: translatey(-150px);
+        transform: translatey(-150px);
+    }
+    to {
+        opacity:1;
+        -webkit-transform: translatey(0);
+        -moz-transform: translatey(0);
+        -o-transform: translatey(0);
+        transform: translatey(0);
+    }
+}
+.in-down {
+    -webkit-animation-name: fadeInDown;
+    -moz-animation-name: fadeInDown;
+    -o-animation-name: fadeInDown;
+    animation-name: fadeInDown;
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 1s;
+    -moz-animation-duration: 1s;
+    -o-animation-duration: 1s;
+    animation-duration: 1s;
+}
+/** fadeInLeft **/
+@keyframes fadeInLeft {
+    from {
+        opacity:0;
+        -webkit-transform: translatex(-100px);
+        -moz-transform: translatex(-100px);
+        -o-transform: translatex(-100px);
+        transform: translatex(-100px);
+    }
+    to {
+        opacity:1;
+        -webkit-transform: translatex(0);
+        -moz-transform: translatex(0);
+        -o-transform: translatex(0);
+        transform: translatex(0);
+    }
+}
+.in-left {
+    -webkit-animation-name: fadeInLeft;
+    -moz-animation-name: fadeInLeft;
+    -o-animation-name: fadeInLeft;
+    animation-name: fadeInLeft;
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 1s;
+    -moz-animation-duration: 1s;
+    -o-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-delay: 1s;
+    -moz-animation-delay: 1s;
+    -o-animation-duration:1s;
+    animation-delay: 1s;
+}
+@keyframes fadeInRight {
+    from {
+        opacity:0;
+        -webkit-transform: translatex(100px);
+        -moz-transform: translatex(100px);
+        -o-transform: translatex(100px);
+        transform: translatex(100px);
+    }
+    to {
+        opacity:1;
+        -webkit-transform: translatex(0);
+        -moz-transform: translatex(0);
+        -o-transform: translatex(0);
+        transform: translatex(0);
+    }
+}
+.in-right {
+    -webkit-animation-name: fadeInRight;
+    -moz-animation-name: fadeInRight;
+    -o-animation-name: fadeInRight;
+    animation-name: fadeInRight;
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 1s;
+    -moz-animation-duration: 1s;
+    -o-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-delay: 1s;
+    -moz-animation-delay: 1s;
+    -o-animation-duration:1s;
+    animation-delay: 1s;
+}
+
+
+/*Main_page Style*/
+/*body{
+    background-color: lightblue;
+}*/
+.main_title{
+    margin-top: 150px;
+}
+.main_title h2{
+    color: red;
+}
+.main_page_login_pop_up{
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid black;
+    width: 400px;
+}
+.main_page_login_pop_up ul{
+    list-style: none;
+    padding: 0px;
+}
+.important_color{
+    color: red;
+}
+.required_fields span{
+    font-weight: bold;
+}
+
+/*View Page*/
+.container-fluid{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.row{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.login_page_padding{
+    padding-right: 0px;
+    padding-left: 0px;
+}
+.login_page_background{
+    background-image: url("../images/education.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 794px;
+}
+.login_page_background_opacity{
+    background-color: #80008080;
+    height: 794px;
+}
+.school_logo{
+    padding: 100px;
+}
+.school_logo h2{
+    color: white;
+    text-transform: uppercase;
+}
+.company_logo{
+    margin-top: 300px;
+    padding: 50px;
+}
+.company_logo h2{
+    text-transform: uppercase;
+    color: white;
+}
+.login_page_section{
+    margin-top: 100px;
+    padding: 25px;
+}
+.login_page_section h1{
+    color: purple;
+}
+.login_page_section span{
+    font-size: 50px;
+}
+.login_page_section p{
+    color: #333333;
+    font-size: 16px;
+    margin-bottom: 25px;
+}
+.login_inputs{
+    width: 75%;
+    border-radius: 0px;
+    border-color: purple;
+    padding: 25px;
+    color: black;
+    margin-bottom: 25px;
+    font-size: 1.4em;s
+}
+
+.login_button{
+    padding: 8px 30px;
+    border-radius: 0px;
+    border: 1px solid purple;
+    background-color: purple;
+    color: white;
+    font-size: 1.4em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.login_button:hover{
+    border: 1px solid purple;
+    background-color: white;
+    color: purple;
+    transition: 1.5s;
+}
+.company_details{
+    width: 100%;
+}
+
+/*Screen_view*/
+.school-navbar{
+    height: 60px;
+    border-bottom: 1px solid purple;
+}
+.school_name h2{
+    font-size: 28px;
+}
+.school_details{
+    text-align: right;
+}
+.school_details ul{
+    padding: 0px;
+    list-style: none;
+    display: inline;
+}
+.left_menu_bar{
+    background-color: #8000808a;
+    width: 300px;
+    border-right: 1px solid purple;
+    border-left: 1px solid purple;
+    border-bottom: 1px solid purple;
+    height: 734px;
+    position: absolute;
+}
+.left_menu_bar ul{
+    padding: 0px;
+    list-style: none;
+    display: inline;
+}
+.left_menu_bar ul li{
+    padding: 20px;
+    list-style: none;
+    border-bottom: 1px solid #333333;
+    cursor: pointer;
+}
+.left_menu_bar ul li:hover{
+    background-color: #80008033;
+}
+.left_menu_bar ul li a{
+    text-decoration: none;
+    text-transform: uppercase;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+.left_menu_bar ul li a:hover{
+    color: black;
+}
+
+/*Left_sidebar*/
+body,html{
+    height: 100%;
+}
+
+/* remove outer padding */
+.container-main .row{
+    padding: 0px;
+    margin: 0px;
+}
+
+/*Remove rounded coners*/
+
+nav.sidebar.navbar {
+    border-radius: 0px;
+}
+
+nav.sidebar, .container-main{
+    -webkit-transition: margin 200ms ease-out;
+    -moz-transition: margin 200ms ease-out;
+    -o-transition: margin 200ms ease-out;
+    transition: margin 200ms ease-out;
+}
+
+/* Icons */
+.menu-icon {
+    font-size: 20px;
+}
+
+/* Add gap to nav and right windows.*/
+/*.container-main{
+    padding: 10px 10px 0 10px;
+}*/
+
+/* Colors */
+.navbar-m2p {
+    background-color: #00464f;
+    border-color: #00464f;
+}
+.navbar-m2p span, .navbar-m2p a {
+    color: #FFFFFF;
+}
+.active .dropdown-toggle {
+    background-color: rgba(126, 169, 39, 0.3);
+    border-color: rgba(126, 169, 39, 0.3);
+}
+.nav .open > a {
+    background-color: rgba(126, 169, 39, 0.3);
+    border-color: rgba(126, 169, 39, 0.3);
+}
+.nav li > a:hover, .nav .open > a:hover,
+.nav li > a:focus, .nav .open > a:focus,
+.nav li > a:active, .nav .open > a:active {
+    background-color: rgba(126, 169, 39, 0.3);
+}
+.nav .open ul > li {
+    background-color: rgba(126, 169, 39, 0.4)
+}
+.navbar-m2p .navbar-nav .open .dropdown-menu>li>a {
+    color: #FFFFFF;
+    padding: 10px;
+}
+/* borda menu active */
+.navbar-m2p .navbar-nav .active a {
+    margin-left: -1px;
+    border-left: 5px solid #7ea927;
+}
+/* Hamburger */
+.navbar-toggle {
+    background-color: transparent;
+    border: 1px solid rgba(126, 169, 39, 0.4);
+}
+.navbar-toggle .icon-bar,
+.navbar-toggle .icon-bar + .icon-bar {
+    background-color: #7ea927;
+}
+
+nav:hover .forAnimate{
+    opacity: 1;
+}
+
+.navbar-m2p .dropdown-menu {
+    padding: 0px;
+}
+
+.nav li.separator {
+    padding: 10px 15px;
+    text-transform: uppercase;
+    background-color: rgba(0, 0, 39, 0.2);
+    color: rgba(208, 208, 207, 0.4);
+}
+
+/* .....NavBar: Icon only with coloring/layout.....*/
+
+/*small/medium side display*/
+@media (min-width: 768px) {
+
+    /*Allow main to be next to Nav*/
+    .container-main{
+        position: absolute;
+        width: calc(100% - 40px); /*keeps 100% minus nav size*/
+        margin-left: 40px;
+        float: right;
+    }
+
+    /*lets nav bar to be showed on mouseover*/
+    nav.sidebar:hover + .container-main{
+        margin-left: 300px;
+    }
+
+    /*Center Brand*/
+    nav.sidebar.navbar.sidebar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
+        margin-left: 0px;
+    }
+    /*Center Brand*/
+    nav.sidebar .navbar-brand, nav.sidebar .navbar-header{
+        text-align: center;
+        width: 100%;
+        margin-left: 0px;
+        font-size: 25px;
+        line-height: 27px;
+    }
+
+    /*Center Icons*/
+    nav.sidebar a{
+        padding-right: 13px;
+    }
+
+    /* Colors/style dropdown box*/
+    nav.sidebar .navbar-nav .open .dropdown-menu {
+        position: static;
+        float: none;
+        width: auto;
+        margin-top: 0;
+        background-color: transparent;
+        border: 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    /*allows nav box to use 100% width*/
+    nav.sidebar .navbar-collapse, nav.sidebar .container-fluid{
+        padding: 0 0px 0 0px;
+    }
+
+    /*gives sidebar width/height*/
+    nav.sidebar{
+        width: 300px;
+        height: 100%;
+        margin-left: -260px;
+        float: left;
+        z-index: 8000;
+        margin-bottom: 0px;
+    }
+
+    /*give sidebar 100% width;*/
+    nav.sidebar li {
+        width: 100%;
+    }
+
+    /* Move nav to full on mouse over*/
+    nav.sidebar:hover{
+        margin-left: 0px;
+    }
+    /*for hiden things when navbar hidden*/
+    .forAnimate{
+        opacity: 0;
+    }
+}
+
+/* .....NavBar: Fully showing nav bar..... */
+
+@media (min-width: 1330px) {
+
+    /*Allow main to be next to Nav*/
+    .container-main{
+        width: calc(100% - 300px); /*keeps 100% minus nav size*/
+        margin-left: 300px;
+    }
+
+    /*Show all nav*/
+    nav.sidebar{
+        margin-left: 0px;
+        float: left;
+    }
+    /*Show hidden items on nav*/
+    nav.sidebar .forAnimate{
+        opacity: 1;
+    }
+}
+
+/*Create Student*/
+.add_form input{
+    border-radius: 0px;
+}
+.add_form textarea{
+    border-radius: 0px;
+}
+.add_form select{
+    border-radius: 0px;
+}
+.add_form .well{
+    border-radius: 0px;
+}
+/*Fee Voucher*/
+.fee_voucher_box{
+    border: 2px dashed black;
+    border-radius: 5px;
+    padding: 10px;
+}

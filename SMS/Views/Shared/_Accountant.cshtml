@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>School Management System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="~/Scripts/js/jquery-3.2.1.min.js"></script>
+    <script src="~/Scripts/js/script.js"></script>
+    <script src="~/Scripts/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/js/bootstrap-clockpicker.min.js"></script>
+
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+    <script src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/css/animate.css">
+    <link rel="stylesheet" href="~/Content/css/style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-m2p sidebar" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                Iqra <b> School </b> System
+            </a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <!-- Dashboard -->
+                <li class="active open">
+                  <a href="#">
+                      <span class="pull-right hidden-xs showopacity"><i style="font-size:24px" class="material-icons">&#xe871;</i></span> Dashboard
+                  </a>
+                </li>
+                <!-- Banner -->
+                <li class="">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="menu-icon pull-right hidden-xs showopacity"><i style="font-size:24px" class="material-icons">&#xe80c;</i></span>
+                        Employee <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu forAnimate" role="menu">
+                        <li><a href="@Url.Action("CreateEmployee")"><i style="font-size:24px" class="material-icons">&#xe145;</i>
+                            Add</a></li>
+                        <li><a href="@Url.Action("EmployeeList")"><i style="font-size:24px" class="material-icons">&#xe164;</i>
+                            List</a></li>
+                    </ul>
+                </li>
+                <li class="">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="menu-icon pull-right hidden-xs showopacity"><i style="font-size:24px" class="material-icons">&#xe80c;</i></span>
+                        Students <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu forAnimate" role="menu">
+                        <li><a href="#"><i style="font-size:24px" class="material-icons">&#xe145;</i>
+                            Add</a></li>
+                        <li><a href="#"><i style="font-size:24px" class="material-icons">&#xe164;</i>
+                            List</a></li>
+                    </ul>
+                </li>
+                <li class="separator">Content</li>
+                <!-- Page -->
+                <li class="">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="menu-icon pull-right hidden-xs showopacity"><i style="font-size:24px" class="material-icons">&#xe160;</i></span>
+                        Reports <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu forAnimate" role="menu">
+                        <li><a href="#"><i style="font-size:24px" class="material-icons">&#xe145;</i>
+                            Add</a></li>
+                        <li><a href="#"><i style="font-size:24px" class="material-icons">&#xe164;</i>
+                            List</a></li>
+                    </ul>
+                </li>
+                <!-- Blog -->
+                <li class="">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="menu-icon pull-right hidden-xs showopacity"><i style="font-size:24px" class="material-icons">&#xe85a;</i></span>
+                        Annpunements <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu forAnimate" role="menu">
+                        <li><a href="#"><i style="font-size:24px" class="material-icons">&#xe145;</i>
+                            Add</a></li>
+                        <li><a href="#"><i style="font-size:24px" class="material-icons">&#xe164;</i>
+                            List</a></li>
+                    </ul>
+                </li>
+                <!-- Tags -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span style="font-size:16px;" class="pull-right hidden-xs showopacity"><i style="font-size:24px" class="fa">&#xf02c;</i></span>
+                        Tags <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu forAnimate" role="menu">
+                        <li><a href="#"><i style="font-size:24px" class="material-icons">&#xe145;</i>
+                            Add</a></li>
+                        <li><a href="#"><i style="font-size:24px" class="material-icons">&#xe164;</i>
+                            List</a></li>
+                    </ul>
+                </li>
+                <li class="separator">System</li>
+                <!-- Users -->
+                <li class="#">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="menu-icon pull-right hidden-xs showopacity"><i style="font-size:24px" class="fa">&#xf0c0;</i></span>
+                        Users <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu forAnimate" role="menu">
+                        <li><a href="#"><i style="font-size:24px" class="material-icons">&#xe145;</i>
+                            Add</a></li>
+                        <li><a href="#"><i style="font-size:24px" class="material-icons">&#xe164;</i>
+                            List</a></li>
+                    </ul>
+                </li>
+                <!-- Exit -->
+                <li>
+                    <a href="#">
+                        <span class="menu-icon pull-right hidden-xs showopacity"><i style="font-size:24px" class="fa">&#xf00d;</i></span> Exit
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <div id="content-main" class="admin_screen">
+        <div class="admin_screen_view_box">
+            @RenderBody()
+        </div>
+    </div>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

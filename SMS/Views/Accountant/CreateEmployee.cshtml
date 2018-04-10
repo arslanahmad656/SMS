@@ -1,6 +1,6 @@
 ﻿@model SMS.Models.Employee
 
-@{
+@*@{
     ViewBag.Title = "CreateEmployee";
 }
 
@@ -65,8 +65,43 @@
 
 <div>
     @Html.ActionLink("Back to List", "Index")
-</div>
+</div>*@
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+
+<div class="container add_form">
+    <h4 class="well text-center"><b>New Teacher</b></h4>
+    <div class="col-lg-12 well">
+        <div class="row">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            @Html.LabelFor(model => model.Name)
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            @Html.LabelFor(model => model.CNIC)
+                            @Html.EditorFor(model => model.CNIC, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            @Html.LabelFor(model => model.Address)
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            @Html.LabelFor(model => model.Contact)
+                            @Html.EditorFor(model => model.Contact, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                    <div class="col-sm-12 form-group">
+                        @Html.LabelFor(model => model.DesignationId)
+                        @Html.DropDownList("DesignationId", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                    
+                    <button type="submit" value="Create" class="center-block btn btn-lg btn-success">Create</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
