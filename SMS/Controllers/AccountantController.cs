@@ -348,7 +348,7 @@ namespace SMS.Controllers
                 report.Date = DateTime.Now;
                 db.FinanceReports.Add(report);
                 db.SaveChanges();
-                return null;
+                return RedirectToAction("ListFinanceReport");
             }
             else {
                 throw new Exception("Model state is invalid");
@@ -375,13 +375,15 @@ namespace SMS.Controllers
             {
                 db.Entry(model).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-                return View(model);
+                return RedirectToAction("ListFinanceReport");
+                
             }
             else
             {
                 throw new Exception("model not found");
             }
         }
+
         public ActionResult DeleteFinanceReport(int id)
         {
             var model = db.FinanceReports.Find(id);
@@ -389,7 +391,14 @@ namespace SMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
-          
+                        
+            return View(model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteFinanceReport(FinanceReport model)
+        {
+                     
             db.Entry(model).State = System.Data.Entity.EntityState.Deleted;
             db.SaveChanges();
             return RedirectToAction("ListFinanceReport");

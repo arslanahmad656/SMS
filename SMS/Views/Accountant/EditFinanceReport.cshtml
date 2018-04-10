@@ -1,62 +1,162 @@
 ﻿@model SMS.Models.FinanceReport
 
-@{
-    ViewBag.Title = "EditFinanceReport";
-}
+<div class="container add_form">
+    <h4 class="well text-center"><b>Edit Finance Report</b></h4>
+    <div class=" well">
+        <div class="row">
+            @using (Html.BeginForm())
+            {
+                @Html.Hidden("Date", DateTime.Now)
+                @Html.AntiForgeryToken()
 
-<h2>EditFinanceReport</h2>
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        @Html.LabelFor(model => model.Description)
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
 
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        @Html.LabelFor(model => model.InOut)
+                        @Html.EditorFor(model => model.InOut)
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        @Html.LabelFor(model => model.Amount)
+                        @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
 
-    
-    <div class="form-horizontal">
-        <h4>FinanceReport</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-        @Html.HiddenFor(model=>model.Date)
-       
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
+                    </div>
+                    @*<div class="col-sm-6 form-group">
+                                <label>CNIC/B-Form</label>
+                                <input type="text" placeholder="CNIC/B-Form # Here.." class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 form-group">
+                            <label>Address</label>
+                            <textarea placeholder="Enter Address Here.." rows="2" class="form-control"></textarea>
+                        </div>*@
+                    <!-- <div class="col-sm-4 form-group">
+                        <label>State</label>
+                        <input type="text" placeholder="Enter State Name Here.." class="form-control">
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label>Zip</label>
+                        <input type="text" placeholder="Enter Zip Code Here.." class="form-control">
+                    </div>  -->
+                    @*<div class="col-sm-6 form-group">
+                            <label>Class</label>
+                            <select class="form-control" name="class">
+                                <option>Nursery</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>Section</label>
+                            <select class="form-control" name="section">
+                                <option>A</option>
+                                <option>B</option>
+                                <option>C</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label>Phone Number</label>
+                            <input type="text" placeholder="Enter Phone Number Here.." class="form-control">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label>Secondary Phone Number</label>
+                            <input type="text" placeholder="Enter Secondary Phone Number Here.." class="form-control">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label>Email Address</label>
+                            <input type="text" placeholder="Enter Email Address Here.." class="form-control">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="birthDate" class="control-label">Date of Birth</label>
+                            <input type="date" class="form-control">
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label class="control-label">Gender</label>
+                            <div class="col-sm-12">
+                                <div class="col-sm-1">
+                                    <label class="radio-inline">
+                                        <input type="radio" value="Female">Female
+                                    </label>
+                                </div>
+                                <div class="col-sm-1">
+                                    <label class="radio-inline">
+                                        <input type="radio" value="Male">Male
+                                    </label>
+                                </div>
+                                <div class="col-sm-1">
+                                    <label class="radio-inline">
+                                        <input type="radio" value="Unknown">Unknown
+                                    </label>
+                                </div>
+                            </div>
+                        </div>*@
+                    <button type="submit" class="center-block btn btn-lg btn-success">Edit</button>
+                </div>
+            }
         </div>
+    </div>
+</div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.InOut, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.InOut)
-                    @Html.ValidationMessageFor(model => model.InOut, "", new { @class = "text-danger" })
+@*@{
+        ViewBag.Title = "CreateFinanceReport";
+    }
+
+    <h2>CreateFinanceReport</h2>
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("Date", DateTime.Now)
+
+        <div class="form-horizontal">
+            <h4>FinanceReport</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.InOut, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.InOut)
+                        @Html.ValidationMessageFor(model => model.InOut, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
                 </div>
             </div>
         </div>
+    }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
