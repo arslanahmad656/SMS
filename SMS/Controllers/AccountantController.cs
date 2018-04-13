@@ -604,9 +604,23 @@ namespace SMS.Controllers
                 }
                 throw new Exception ("Error in Creating test") ;
             }
-            catch
+            catch(Exception ex)
             {
-                throw;
+                var teacher = db.Teachers.ToList();
+                List<TeacherNameViewModel> teacherNames = new List<TeacherNameViewModel>();
+                foreach (Teacher i in teacher)
+                {
+                    TeacherNameViewModel temp = new TeacherNameViewModel();
+                    temp.Id = i.Id;
+                    temp.Name = i.Employee.Name;
+                    teacherNames.Add(temp);
+
+                };
+                ViewBag.TeacherId = new SelectList(teacherNames, "Id", "Name");
+                ViewBag.ClassId = new SelectList(db.Classes, "Id", "Title", model.ClassId);
+                ViewBag.SubjectId = new SelectList(db.Subjects, "Id", "TItle", model.SubjectId);
+                ModelState.AddModelError("", ex);
+                return View(model);
             }
 
         }

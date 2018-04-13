@@ -18,8 +18,11 @@ namespace SMS.Models
         public int SubjectId { get; set; }
        [Required]
         public string Type { get; set; }
+
         [Required]
+        [DataType(DataType.Date)]
         public System.DateTime Date { get; set; }
+
         [Required]
         public decimal TotalMarks { get; set; }
     }
