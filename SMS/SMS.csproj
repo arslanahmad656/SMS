@@ -301,6 +301,14 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bs3\css\bootstrap-theme.css" />
+    <Content Include="Content\bs3\css\bootstrap-theme.min.css" />
+    <Content Include="Content\bs3\css\bootstrap.css" />
+    <Content Include="Content\bs3\css\bootstrap.min.css" />
+    <Content Include="Content\bs3\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\bs3\js\bootstrap.js" />
+    <Content Include="Content\bs3\js\bootstrap.min.js" />
+    <Content Include="Content\bucket-ico-fonts\bucket-ico-font.svg" />
     <Content Include="Content\css\animate.css" />
     <Content Include="Content\css\blue-theme.css" />
     <Content Include="Content\css\bootstrap-reset.css" />
@@ -318,6 +326,9 @@
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\table-responsive.css" />
     <Content Include="Content\css\turquoise-theme.css" />
+    <Content Include="Content\font-awesome\css\font-awesome.css" />
+    <Content Include="Content\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\images\404.png" />
     <Content Include="Content\images\500.png" />
     <Content Include="Content\images\acc-expand.png" />
@@ -1191,6 +1202,44 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Content\font-awesome\less\bordered-pulled.less" />
+    <Content Include="Content\font-awesome\less\core.less" />
+    <Content Include="Content\font-awesome\less\fixed-width.less" />
+    <Content Include="Content\font-awesome\less\font-awesome.less" />
+    <Content Include="Content\font-awesome\less\icons.less" />
+    <Content Include="Content\font-awesome\less\larger.less" />
+    <Content Include="Content\font-awesome\less\list.less" />
+    <Content Include="Content\font-awesome\less\mixins.less" />
+    <Content Include="Content\font-awesome\less\path.less" />
+    <Content Include="Content\font-awesome\less\rotated-flipped.less" />
+    <Content Include="Content\font-awesome\less\spinning.less" />
+    <Content Include="Content\font-awesome\less\stacked.less" />
+    <Content Include="Content\font-awesome\less\variables.less" />
+    <Content Include="Content\font-awesome\scss\font-awesome.scss" />
+    <Content Include="Content\font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="Content\font-awesome\scss\_core.scss" />
+    <Content Include="Content\font-awesome\scss\_fixed-width.scss" />
+    <Content Include="Content\font-awesome\scss\_icons.scss" />
+    <Content Include="Content\font-awesome\scss\_larger.scss" />
+    <Content Include="Content\font-awesome\scss\_list.scss" />
+    <Content Include="Content\font-awesome\scss\_mixins.scss" />
+    <Content Include="Content\font-awesome\scss\_path.scss" />
+    <Content Include="Content\font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="Content\font-awesome\scss\_spinning.scss" />
+    <Content Include="Content\font-awesome\scss\_stacked.scss" />
+    <Content Include="Content\font-awesome\scss\_variables.scss" />
+    <Content Include="Content\bs3\css\bootstrap-theme.css.map" />
+    <Content Include="Content\bs3\css\bootstrap.css.map" />
+    <Content Include="Content\bs3\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bs3\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\bs3\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\bucket-ico-fonts\bucket-ico-font.eot" />
+    <Content Include="Content\bucket-ico-fonts\bucket-ico-font.ttf" />
+    <Content Include="Content\bucket-ico-fonts\bucket-ico-font.woff" />
     <Content Include="Content\js\advanced-datatable\images\Sorting icons.psd" />
     <Content Include="Content\js\bootstrap-colorpicker\less\colorpicker.less" />
     <Content Include="Content\js\bootstrap-datepicker\less\datepicker.less" />
@@ -1359,9 +1408,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\bs3\" />
-    <Folder Include="Content\bucket-ico-fonts\" />
-    <Folder Include="Content\font-awesome\" />
     <Folder Include="Content\images\flags\" />
     <Folder Include="Content\images\gallery\" />
     <Folder Include="Content\js\calendar\src\" />
