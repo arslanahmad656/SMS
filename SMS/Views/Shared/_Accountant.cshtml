@@ -236,8 +236,8 @@
     <link rel="shortcut icon" href="images/favicon.png">
     <title>Blank page</title>
     <!--Core CSS -->
-    <link href="~/Content/bs3/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/Content/css/bootstrap-reset.css" rel="stylesheet">
+    <link href="@Url.Content("~/Content/bs3/css/bootstrap.min.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/css/bootstrap-reset.css")" rel="stylesheet">
     <link href="~/Content/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Custom styles for this template -->
@@ -509,8 +509,8 @@
                                 <span>Students</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="boxed_page.html"><span><i class="fa fa-plus"></i></span>&nbsp;Add Student</a></li>
-                                <li><a href="horizontal_menu.html"><span><i class="fa fa-eye"></i></span>&nbsp;List Students</a></li>
+                                <li><a href="@Url.Action("CreateStudent")"><span><i class="fa fa-plus"></i></span>&nbsp;Add Student</a></li>
+                                <li><a href="@Url.Action("ListStudent")"><span><i class="fa fa-eye"></i></span>&nbsp;List Students</a></li>
                             </ul>
                         </li>
                         <li class="sub-menu">
@@ -519,8 +519,8 @@
                                 <span>Subjects</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="boxed_page.html"><span><i class="fa fa-edit"></i></span>&nbsp;Manage Subjects</a></li>
-                                <li><a href="horizontal_menu.html"><span><i class="fa fa-eye"></i></span>&nbsp;View Subjects</a></li>
+                                <li><a href="#"><span><i class="fa fa-edit"></i></span>&nbsp;Manage Subjects</a></li>
+                                <li><a href="#"><span><i class="fa fa-eye"></i></span>&nbsp;View Subjects</a></li>
                             </ul>
                         </li>
                         <li class="sub-menu">
@@ -529,8 +529,8 @@
                                 <span>Reports</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="boxed_page.html"><span><i class="fa fa-plus"></i></span>&nbsp;Manage Report</a></li>
-                                <li><a href="horizontal_menu.html"><span><i class="fa fa-eye"></i></span>&nbsp;View Reports</a></li>
+                                <li><a href="@Url.Action("CreateFinanceReport")"><span><i class="fa fa-plus"></i></span>&nbsp;Manage Report</a></li>
+                                <li><a href="@Url.Action("ListFinanceReport")"><span><i class="fa fa-eye"></i></span>&nbsp;View Reports</a></li>
                             </ul>
                         </li>
                         <li class="sub-menu">
@@ -539,8 +539,8 @@
                                 <span>Announcement</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="boxed_page.html"><span><i class="fa fa-plus"></i></span>&nbsp;Manage Announcement</a></li>
-                                <li><a href="horizontal_menu.html"><span><i class="fa fa-eye"></i></span>&nbsp;View Announcements</a></li>
+                                <li><a href="#"><span><i class="fa fa-plus"></i></span>&nbsp;Manage Announcement</a></li>
+                                <li><a href="#"><span><i class="fa fa-eye"></i></span>&nbsp;View Announcements</a></li>
                             </ul>
                         </li>
                         <li class="sub-menu">
@@ -549,9 +549,9 @@
                                 <span>Print</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="boxed_page.html"><span><i class="fa fa-print"></i></span>&nbsp;Print Admission Foam</a></li>
-                                <li><a href="horizontal_menu.html"><span><i class="fa fa-print"></i></span>&nbsp;Print Pay Voucher</a></li>
-                                <li><a href="horizontal_menu.html"><span><i class="fa fa-print"></i></span>&nbsp;Print Fee Challan</a></li>
+                                <li><a href="@Url.Action("AdmissionForm")"><span><i class="fa fa-print"></i></span>&nbsp;Print Admission Foam</a></li>
+                                <li><a href="@Url.Action("PrintPayVoucher")"><span><i class="fa fa-print"></i></span>&nbsp;Print Pay Voucher</a></li>
+                                <li><a href="@Url.Action("PrintFeeChallan")"><span><i class="fa fa-print"></i></span>&nbsp;Print Fee Challan</a></li>
                             </ul>
                         </li>
                         <li class="sub-menu">
@@ -560,9 +560,9 @@
                                 <span>Test</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="boxed_page.html"><span><i class="fa fa-plus"></i></span>&nbsp;Create Test</a></li>
-                                <li><a href="boxed_page.html"><span><i class="fa fa-edit"></i></span>&nbsp;Edit Test</a></li>
-                                <li><a href="horizontal_menu.html"><span><i class="fa fa-list"></i></span>&nbsp;Add Students Marks</a></li>
+                                <li><a href="@Url.Action("CreateTest")"><span><i class="fa fa-plus"></i></span>&nbsp;Create Test</a></li>
+                                <li><a href="@Url.Action("EditTest")"><span><i class="fa fa-edit"></i></span>&nbsp;Edit Test</a></li>
+                                <li><a href="@Url.Action("MarkStudentMarks")"><span><i class="fa fa-list"></i></span>&nbsp;Add Students Marks</a></li>
                             </ul>
                         </li>
                         <li class="sub-menu">
@@ -575,20 +575,20 @@
                                     <a href="boxed_page.html"><span><i class="fa fa-plus"></i></span>&nbsp;Mark Attendance</a>
                                     <ul class="sub">
                                         <li>
-                                            <a href="boxed_page.html"><span><i class="fa fa-plus"></i></span>&nbsp;Employee Attendance</a>
+                                            <a href="@Url.Action("MarkEmployeeAttendace")"><span><i class="fa fa-plus"></i></span>&nbsp;Employee Attendance</a>
                                         </li>
-                                        <li><a href="boxed_page.html"><span><i class="fa fa-edit"></i></span>&nbsp;Student Attendance</a></li>
+                                        <li><a href="@Url.Action("MarkStudentAttendance")"><span><i class="fa fa-edit"></i></span>&nbsp;Student Attendance</a></li>
                                     </ul>
                                 </li>
                                 <li>
                                     <a href="boxed_page.html"><span><i class="fa fa-list"></i></span>&nbsp;View Attendance</a>
                                     <ul class="sub">
                                         <li>
-                                            <a href="boxed_page.html"><span><i class="fa fa-eye"></i></span>&nbsp;View Employee Attendance</a>
+                                            <a href="#"><span><i class="fa fa-eye"></i></span>&nbsp;View Employee Attendance</a>
                                         </li>
-                                        <li><a href="boxed_page.html"><span><i class="fa fa-eye"></i></span>&nbsp;View Student Attendance</a></li>
-                                        <li><a href="horizontal_menu.html"><span><i class="fa fa-eye"></i></span>&nbsp;View Class Attendance</a></li>
-                                        <li><a href="horizontal_menu.html"><span><i class="fa fa-eye"></i></span>&nbsp;View Staff Attendance</a></li>
+                                        <li><a href="#"><span><i class="fa fa-eye"></i></span>&nbsp;View Student Attendance</a></li>
+                                        <li><a href="#"><span><i class="fa fa-eye"></i></span>&nbsp;View Class Attendance</a></li>
+                                        <li><a href="#"><span><i class="fa fa-eye"></i></span>&nbsp;View Staff Attendance</a></li>
                                     </ul>
                                 </li>
                             </ul>
