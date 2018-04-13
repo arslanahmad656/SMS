@@ -301,17 +301,59 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\animate.css" />
+    <Content Include="Content\css\blue-theme.css" />
+    <Content Include="Content\css\bootstrap-reset.css" />
+    <Content Include="Content\css\bootstrap-switch.css" />
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\bucket-ico-fonts.css" />
+    <Content Include="Content\css\clndr.css" />
+    <Content Include="Content\css\default-theme.css" />
+    <Content Include="Content\css\green-theme.css" />
+    <Content Include="Content\css\invoice-print.css" />
+    <Content Include="Content\css\jquery.steps.css" />
+    <Content Include="Content\css\orange-theme.css" />
+    <Content Include="Content\css\purple-theme.css" />
+    <Content Include="Content\css\style-responsive.css" />
     <Content Include="Content\css\style.css" />
+    <Content Include="Content\css\table-responsive.css" />
+    <Content Include="Content\css\turquoise-theme.css" />
+    <Content Include="Content\images\404.png" />
+    <Content Include="Content\images\500.png" />
+    <Content Include="Content\images\acc-expand.png" />
+    <Content Include="Content\images\avatar-mini-2.jpg" />
+    <Content Include="Content\images\avatar-mini-3.jpg" />
+    <Content Include="Content\images\avatar-mini-4.jpg" />
+    <Content Include="Content\images\avatar-mini.jpg" />
+    <Content Include="Content\images\avatar1.jpg" />
+    <Content Include="Content\images\avatar1_small.jpg" />
+    <Content Include="Content\images\bucket-logo.png" />
+    <Content Include="Content\images\chat-avatar2.jpg" />
+    <Content Include="Content\images\chat-user-thumb-f.png" />
+    <Content Include="Content\images\chat-user-thumb.png" />
+    <Content Include="Content\images\crazy-price.jpg" />
+    <Content Include="Content\images\customSelect-arrow.gif" />
+    <Content Include="Content\images\details_close.png" />
+    <Content Include="Content\images\details_open.png" />
     <Content Include="Content\images\education.jpg" />
+    <Content Include="Content\images\input-spinner.gif" />
+    <Content Include="Content\images\lock-screen.jpg" />
+    <Content Include="Content\images\lock_thumb.jpg" />
+    <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\nav-expand.png" />
+    <Content Include="Content\images\product_img.png" />
     <Content Include="Content\images\punjab.png" />
+    <Content Include="Content\images\search-icon.png" />
+    <Content Include="Content\images\sm-img-1.jpg" />
+    <Content Include="Content\images\sm-img-2.jpg" />
+    <Content Include="Content\images\sm-img-3.jpg" />
+    <Content Include="Content\images\top-arrow.png" />
+    <Content Include="Content\images\twitter_corner_black.png" />
+    <Content Include="Content\images\twitter_corner_blue.png" />
+    <Content Include="Content\images\weather_image.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Models\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model.edmx</DependentUpon>
@@ -437,6 +479,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\bs3\" />
+    <Folder Include="Content\bucket-ico-fonts\" />
+    <Folder Include="Content\font-awesome\" />
+    <Folder Include="Content\images\flags\" />
+    <Folder Include="Content\images\gallery\" />
+    <Folder Include="Content\js\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

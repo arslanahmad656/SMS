@@ -1,7 +1,127 @@
 ﻿
 @{
     ViewBag.Title = "AdmissionForm";
+    Layout = null;
 }
 
-<h2>AdmissionForm</h2>
+<head>
+    <script src="~/Scripts/js/jquery-3.2.1.min.js"></script>
+    <script src="~/Scripts/js/script.js"></script>
+    <script src="~/Scripts/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/js/bootstrap-clockpicker.min.js"></script>
+
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+    <script src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/css/animate.css">
+    <link rel="stylesheet" href="~/Content/css/style.css">
+</head>
+
+<div class="container">
+    <h3 class="text-center well">ADMISSION FORM</h3>
+    <div class="col-lg-12 well">
+        <div class="row">
+            <form>
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label>First Name</label>
+                            <input type="text" placeholder="Enter First Name Here.." class="form-control">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>Last Name</label>
+                            <input type="text" placeholder="Enter Last Name Here.." class="form-control">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>Father/Guardian Name</label>
+                            <input type="text" placeholder="Father/Guardian Name Here.." class="form-control">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>CNIC/B-Form</label>
+                            <input type="text" placeholder="CNIC/B-Form # Here.." class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-12 form-group">
+                        <label>Address</label>
+                        <textarea placeholder="Enter Address Here.." rows="3" class="form-control"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label>City</label>
+                            <input type="text" placeholder="Enter City Name Here.." class="form-control">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>Country</label>
+                            <input type="text" placeholder="Enter City Name Here.." class="form-control">
+                        </div>
+                        <!-- <div class="col-sm-4 form-group">
+                            <label>State</label>
+                            <input type="text" placeholder="Enter State Name Here.." class="form-control">
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Zip</label>
+                            <input type="text" placeholder="Enter Zip Code Here.." class="form-control">
+                        </div>  -->
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label>Class</label>
+                            <select class="form-control" name="class">
+                                <option>Nursery</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>Section</label>
+                            <select class="form-control" name="section">
+                                <option>A</option>
+                                <option>B</option>
+                                <option>C</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label>Phone Number</label>
+                        <input type="text" placeholder="Enter Phone Number Here.." class="form-control">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label>Secondary Phone Number</label>
+                        <input type="text" placeholder="Enter Secondary Phone Number Here.." class="form-control">
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label>Email Address</label>
+                        <input type="text" placeholder="Enter Email Address Here.." class="form-control">
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="control-label">Gender</label>
+                        <div class="col-sm-12">
+                            <div class="col-sm-1">
+                                <label class="radio-inline">
+                                    <input type="radio" value="Female">Female
+                                </label>
+                            </div>
+                            <div class="col-sm-1">
+                                <label class="radio-inline">
+                                    <input type="radio" value="Male">Male
+                                </label>
+                            </div>
+                            <div class="col-sm-1">
+                                <label class="radio-inline">
+                                    <input type="radio" value="Unknown">Unknown
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 

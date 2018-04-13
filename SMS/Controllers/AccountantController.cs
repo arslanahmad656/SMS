@@ -532,7 +532,9 @@ namespace SMS.Controllers
 
         public ActionResult PrintAdmissionForm()
         {
-            var result = new PartialViewAsPdf("AdmissionForm");
+            //var result = new PartialViewAsPdf("AdmissionForm");
+            var result = new ViewAsPdf("AdmissionForm");
+
             return result;
         }
 
