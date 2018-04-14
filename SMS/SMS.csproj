@@ -1271,7 +1271,6 @@
     <Content Include="Content\js\file-uploader\server\php\index.php" />
     <Content Include="Content\js\file-uploader\server\php\UploadHandler.php" />
     <Content Include="Content\js\flot-chart\API.md" />
-    <Content Include="Content\js\flot-chart\build.log" />
     <Content Include="Content\js\flot-chart\CONTRIBUTING.md" />
     <Content Include="Content\js\flot-chart\FAQ.md" />
     <Content Include="Content\js\flot-chart\Makefile" />
