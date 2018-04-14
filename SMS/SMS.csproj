@@ -773,6 +773,7 @@
     <Content Include="Content\js\file-uploader\server\gae-python\static\favicon.ico" />
     <Content Include="Content\js\file-uploader\server\gae-python\static\robots.txt" />
     <Content Include="Content\js\file-uploader\server\node\server.js" />
+    <Content Include="Content\js\flot-chart\build.log" />
     <Content Include="Content\js\flot-chart\excanvas.js" />
     <Content Include="Content\js\flot-chart\excanvas.min.js" />
     <Content Include="Content\js\flot-chart\jquery.colorhelpers.js" />
