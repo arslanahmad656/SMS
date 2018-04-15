@@ -152,6 +152,16 @@ namespace SMS.Controllers
             db.SaveChanges();
             return RedirectToAction("ListStudent");
         }
+
+        public ActionResult StudentDetails(int id)
+        {
+            var model = db.Students.Find(id);
+            if(model == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
+        }
         
 
         #endregion
@@ -412,6 +422,16 @@ namespace SMS.Controllers
             db.Entry(model).State = System.Data.Entity.EntityState.Deleted;
             db.SaveChanges();
             return RedirectToAction("ListFinanceReport");
+        }
+
+        public ActionResult FinanceReportDetails(int id)
+        {
+            var model = db.FinanceReports.Find(id);
+            if(model == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
         }
         #endregion
 
@@ -723,7 +743,16 @@ namespace SMS.Controllers
                 throw;
             }
         }
-        
+
+        public ActionResult TestDetails(int id)
+        {
+            var model = db.Tests.Find(id);
+            if(model == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]

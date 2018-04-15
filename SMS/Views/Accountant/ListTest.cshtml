@@ -4,7 +4,7 @@
     ViewBag.Title = "ListTest";
 }
 
-<h2>ListTest</h2>
+@*<h2>ListTest</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -62,4 +62,99 @@
     </tr>
 }
 
-</table>
+</table>*@
+
+<div class="adv-table">
+    <div class="form-group ">
+        <div class="col-md-4" style="padding-left: 0px;">
+            <select class=" form-control" name="class">
+                <option disabled selected value style="display:none">Select A Class</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+            </select>
+        </div>
+    </div>
+    <table class="display table table-bordered table-striped" id="dynamic-table">
+        <thead>
+            <tr>
+                <th>
+                    Sr.
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Type)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalMarks)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TeacherSubjectClass.Teacher.Employee.Name)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.TeacherSubjectClass.Subject.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TeacherSubjectClass.Class.Title)
+                </th>
+                <th class="hidden-phone">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @{
+                var count = 0;
+            }
+            @foreach (var item in Model)
+            {
+                <tr data-for-id="@item.Id" class="gradeX" style="cursor: pointer">
+                    <td>
+                        @(++count)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalMarks)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TeacherSubjectClass.Teacher.Employee.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TeacherSubjectClass.Subject.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TeacherSubjectClass.Class.Title)
+                    </td>
+                    <td class="center hidden-phone">
+                        <a href="@Url.Action("ListStudentMarks", new { id = @item.Id })"><span><i style="font-weight:bold;font-size: 2em; color:cornflowerblue" class="fa-file-text"></i></span></a>&nbsp;
+                        <a href="@Url.Action("DeleteTest", new { id = @item.Id })"><span><i style="font-weight:bold;font-size: 2em; color:brown" class="fa fa-trash"></i></span></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>
+
+
+
+@section c_scripts{
+    <script>
+        (function assignClickHandlerToTableRows() {
+
+            $('#dynamic-table tbody tr').click(function () {
+                var currentRowId = Number($(this).attr('data-for-id'));
+                location.href = '/accountant/TestDetails/' + currentRowId;
+            });
+        })();
+    </script>
+}

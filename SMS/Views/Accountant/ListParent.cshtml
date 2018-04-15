@@ -50,7 +50,7 @@
 
 </table>*@
 
-<div class="view_students_table">
+@*<div class="view_students_table">
     <div class="table-responsive students_table">
         <table id="myTable" class="display table table-striped table-hover table-bordered table_border_radius" style="width:100%">
             <thead>
@@ -106,4 +106,84 @@
             </tbody>
         </table>
     </div>
+</div>*@
+
+<div class="adv-table">
+    <div class="form-group ">
+        <div class="col-md-4" style="padding-left: 0px;">
+            <select class=" form-control" name="class">
+                <option disabled selected value style="display:none">Select A Class</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+            </select>
+        </div>
+    </div>
+    <table class="display table table-bordered table-striped" id="dynamic-table">
+        <thead>
+            <tr>
+                <th>
+                    Sr.
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CNIC)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Contact)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AspNetUser.UserName)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @{
+                var count = 0;
+            }
+            @foreach (var item in Model)
+            {
+                <tr data-for-id="@item.Id" class="gradeX" style="cursor: pointer">
+                    <td>
+                        @(++count)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CNIC)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Contact)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AspNetUser.UserName)
+                    </td>
+                    <td class="center hidden-phone">
+                        <a href="@Url.Action("EditParent", new { id = @item.Id })"><span><i style="font-weight:bold;font-size: 2em; color:cornflowerblue" class="fa fa-edit"></i></span></a>&nbsp;
+                        <a href="@Url.Action("DeleteParent", new { id = @item.Id })"><span><i style="font-weight:bold;font-size: 2em; color:brown" class="fa fa-trash"></i></span></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
 </div>
+
+@section c_scripts{
+    <script>
+        (function assignClickHandlerToTableRows() {
+
+            $('#dynamic-table tbody tr').click(function () {
+                var currentRowId = Number($(this).attr('data-for-id'));
+                location.href = '/accountant/ParentDetails/' + currentRowId;
+            });
+        })();
+    </script>
+}

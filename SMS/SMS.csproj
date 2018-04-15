@@ -328,6 +328,9 @@
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\table-responsive.css" />
     <Content Include="Content\css\turquoise-theme.css" />
+    <Content Include="Content\datatable1.css" />
+    <Content Include="Content\datatable2.css" />
+    <Content Include="Content\datatable3.css" />
     <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
@@ -436,6 +439,9 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jsagain\datatable1.js" />
+    <Content Include="Scripts\jsagain\datatable2.js" />
+    <Content Include="Scripts\jsagain\datatable3.js" />
     <Content Include="Scripts\jsagain\jquery.dcjqaccordion.2.7.js" />
     <Content Include="Scripts\jsagain\jquery.easypiechart.js" />
     <Content Include="Scripts\jsagain\jquery.flot.js" />
@@ -540,6 +546,9 @@
     <Content Include="Views\Accountant\EmployeeDetails.cshtml" />
     <Content Include="Views\Accountant\ParentDetails.cshtml" />
     <Content Include="Views\Accountant\DeleteFinanceReport.cshtml" />
+    <Content Include="Views\Accountant\StudentDetails.cshtml" />
+    <Content Include="Views\Accountant\FinanceReportDetails.cshtml" />
+    <Content Include="Views\Accountant\TestDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
